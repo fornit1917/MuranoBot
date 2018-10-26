@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using SlackAPI;
 using SlackConnector;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Common;
+using Domain;
 using Messengers.Services;
 using Messengers.Models;
 
