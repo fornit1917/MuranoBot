@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Common
+﻿namespace Common
 {
-    public class AppConfig
-    {
-        public bool RunSlackBot { get; set; }
-        public bool RunSkypeBot { get; set; }
-        public bool RunTelegramBot { get; set; }
-        public string SlackToken { get; set; }
+	public class AppConfig
+	{
+		public static readonly AppConfig Instance = new AppConfig();
+
+		public bool RunSlackBot { get; set; }
+		public bool RunSkypeBot { get; set; }
+		public bool RunTelegramBot { get; set; }
+		public string SlackToken { get; set; }
 		public string FoodConnectionString { get; set; }
-    }
+	}
 }
