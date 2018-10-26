@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using App.Services;
 using Common;
+using Domain;
 using Messengers.Services;
 
 namespace App
@@ -29,6 +30,7 @@ namespace App
 			// scoped services
 			services.AddScoped<MessageHandler>();
             services.AddScoped<MessageSender>();
+			services.AddScoped<BotRepository>();
 
             // hosted services
             if (appConfig.RunSlackBot)
