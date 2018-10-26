@@ -5,6 +5,7 @@ using System.Transactions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Common;
 using MuranoBot.TimeTracking.App.Application;
 using MuranoBot.TimeTracking.App.Application.Models;
 using MuranoBot.TimeTracking.App.Application.Models.Shared;
@@ -12,10 +13,9 @@ using MuranoBot.TimeTracking.App.Models;
 using MuranoBot.TimeTracking.App.Infrastructure;
 using MuranoBot.TimeTracking.App.Infrastructure.Repositories;
 
-namespace MuranoBot.TimeTracking.Tests {
+namespace MuranoBot.TimeTracking.Tests.Application {
 	[TestClass]
-	public class TimeTrackingAppTest {
-
+	public class VacationsAppTest : TestBase {
 		[TestMethod]
 		public void GetVacationInfoTest() {
 			using(new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -26,7 +26,7 @@ namespace MuranoBot.TimeTracking.Tests {
 				DateTime to = new DateTime(2018, 09, 12);
 				dbContext.Vacations.Add(new Vacation(userId, from, to));
 				dbContext.SaveChanges();
-				var app = new TimeTrackingApp(new VacationsRepository(dbContext));
+				var app = new VacationsApp(new VacationsRepository(dbContext));
 
 				// Act
 				var rc = app.GetVacationInfo(userId, new DateTime(2018, 08, 27));
@@ -45,7 +45,7 @@ namespace MuranoBot.TimeTracking.Tests {
 				int userId = 1091;
 				DateTime from = new DateTime(2018, 08, 24);
 				DateTime to = new DateTime(2018, 09, 12);
-				var app = new TimeTrackingApp(new VacationsRepository(dbContext));
+				var app = new VacationsApp(new VacationsRepository(dbContext));
 
 				// Act
 				app.SetVacation(new VacationInfo {

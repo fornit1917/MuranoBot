@@ -5,9 +5,9 @@ using MuranoBot.TimeTracking.App.Models;
 using MuranoBot.TimeTracking.App.Infrastructure.Repositories;
 
 namespace MuranoBot.TimeTracking.App.Application {
-	public class TimeTrackingApp {
+	public class VacationsApp {
 		private readonly VacationsRepository _vacationsRepository;
-		public TimeTrackingApp(VacationsRepository vacationsRepository) {
+		public VacationsApp(VacationsRepository vacationsRepository) {
 			_vacationsRepository = vacationsRepository;
 		}
 
