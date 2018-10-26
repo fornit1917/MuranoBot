@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messengers", "Messengers\Messengers.csproj", "{BDAE767A-2B27-4474-9253-6B196D8EC273}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C36939E9-ADC7-4A2F-A7A7-96C5179D8DF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BDAE767A-2B27-4474-9253-6B196D8EC273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDAE767A-2B27-4474-9253-6B196D8EC273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDAE767A-2B27-4474-9253-6B196D8EC273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C36939E9-ADC7-4A2F-A7A7-96C5179D8DF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C36939E9-ADC7-4A2F-A7A7-96C5179D8DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C36939E9-ADC7-4A2F-A7A7-96C5179D8DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C36939E9-ADC7-4A2F-A7A7-96C5179D8DF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
