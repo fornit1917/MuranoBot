@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Messengers.Models
 {
-    class VacationInfoRequest
+    public class VacationInfoRequest
     {
         private static Regex regexQuestion = new Regex(@"(.+)в\sотпуске");
 

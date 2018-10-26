@@ -10,22 +10,31 @@ namespace Messengers.Services
 {
     public class MessageHandler
     {
-        private SlackTaskClient _slackClient;
+        private MessageSender _messageSender;
 
-        public MessageHandler(AppConfig appConfig)
+        public MessageHandler(MessageSender messageSender)
         {
-            _slackClient = new SlackTaskClient(appConfig.SlackToken);
+            _messageSender = messageSender;
         }
 
         public Task HandleRequestAsync(BotRequest botRequest)
         {
+            // default destination (sender)
+            Destination destination = new Destination() { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
+
+            BotResponse botResponse;
+
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
             {
-                return _slackClient.PostMessageAsync(botRequest.ChannelId, "Запрос информации об отпуске для сотрудника " + vacationInfoRequest.Name);
+                botResponse = new BotResponse() { Text = "Запрос информации об отпуске для сотрудника " + vacationInfoRequest.Name };
+                return _messageSender.SendAsync(destination, botResponse);
             }
 
-            return _slackClient.PostMessageAsync(botRequest.ChannelId, "Неизвестный запрос: " + botRequest.Text);
+            botResponse = new BotResponse() { Text = "Неизвестная команда: " + botRequest.Text };
+            return _messageSender.SendAsync(destination, botResponse);
         }
+
+
     }
 }
