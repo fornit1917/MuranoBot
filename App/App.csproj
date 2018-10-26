@@ -22,6 +22,7 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\FoodIntegration\FoodIntegration.csproj" />
     <ProjectReference Include="..\Messengers\Messengers.csproj" />
+    <ProjectReference Include="..\TimeTracking\TimeTracking.App\TimeTracking.App.csproj" />
   </ItemGroup>
 
 </Project>

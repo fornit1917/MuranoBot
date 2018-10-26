@@ -8,7 +8,7 @@ namespace Domain
 {
 	public class BotRepository
 	{
-		public async Task<ILookup<string, (Messenger Messenger, string ExternalId)>> GetExternalIdByEmail(ICollection<string> emails)
+		public async Task<ILookup<string, (Messenger Messenger, string ExternalId)>> GetExternalIdByUserEmail(ICollection<string> emails)
 		{
 			using (var ctx = new DomainDbContext())
 			{
@@ -21,7 +21,7 @@ namespace Domain
 			}
 		}
 
-		public async Task<bool> IsRegistered(Messenger messenger, string externalId)
+		public async Task<bool> IsLinkRegistered(Messenger messenger, string externalId)
 		{
 			using (var ctx = new DomainDbContext())
 			{
@@ -29,7 +29,13 @@ namespace Domain
 			}
 		}
 
-		public async Task<Guid> Register(Messenger messenger, string externalId)
+		public async Task<MessengerLink> GetLinkByAuthToken(Guid authToken) {
+			using (var ctx = new DomainDbContext()) {
+				return await GetLinkByAuthToken(ctx, authToken);
+			}
+		}
+
+		public async Task<Guid> RegisterLink(Messenger messenger, string externalId)
 		{
 			using (var ctx = new DomainDbContext())
 			{
@@ -43,6 +49,23 @@ namespace Domain
 				await ctx.SaveChangesAsync();
 				return authToken;
 			}
+		}
+
+		public async Task RegisterUser(int id, string email, Guid authToken)
+		{
+			using (var ctx = new DomainDbContext())
+			{
+				ctx.Users.Add(new User {Email = email, Id = id});
+				await ctx.SaveChangesAsync();
+				MessengerLink link = await GetLinkByAuthToken(ctx, authToken);
+				link.UserId = id;
+				await ctx.SaveChangesAsync();
+			}
+		}
+
+		private Task<MessengerLink> GetLinkByAuthToken(DomainDbContext ctx, Guid authToken)
+		{
+			return ctx.MessengerLinks.SingleOrDefaultAsync(l => l.AuthToken == authToken);
 		}
 	}
 }

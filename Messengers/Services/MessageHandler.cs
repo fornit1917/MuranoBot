@@ -1,17 +1,14 @@
 ﻿using Messengers.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using MuranoBot.TimeTracking.App.Application;
-using Common;
-using SlackAPI;
+using Domain;
 
 namespace Messengers.Services
 {
     public class MessageHandler
     {
-        private MessageSender _messageSender;
+        private readonly MessageSender _messageSender;
 		private readonly VacationsApp _vacationsApp;
 		private readonly BotRepository _botRepository;
 
@@ -22,7 +19,7 @@ namespace Messengers.Services
 			_botRepository = botRepository;
         }
 
-        public Task HandleRequestAsync(BotRequest botRequest)
+        public async Task HandleRequestAsync(BotRequest botRequest)
         {
             // default destination (sender)
             Destination destination = new Destination() { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
@@ -30,11 +27,11 @@ namespace Messengers.Services
 
             if (botRequest.IsDirectMessage)
             {
-	            bool isRegistered = await _botRepository.IsRegistered(botRequest.Messenger, botRequest.ChannelId);
+	            bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.ChannelId);
 	            if (!isRegistered)
 	            {
-		            Guid authToken = await _botRepository.Register(botRequest.Messenger, botRequest.ChannelId);
-		            string link = "http://localhost:55659/api/auth/" + authToken;
+		            Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.ChannelId);
+		            string link = "http://localhost:55659/api/auth/" + authToken; // todo take from config
 					botResponse = new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" };
 		            await _messageSender.SendAsync(destination, botResponse);
 					return;

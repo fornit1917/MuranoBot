@@ -20,7 +20,7 @@ namespace FoodIntegration
 			if (noOrdersForDatesByUser.Count > 0)
 			{				
 				var botRepo = new BotRepository();
-				ILookup<string, (Messenger Messenger, string ExternalId)> externalIds = await botRepo.GetExternalIdByEmail(noOrdersForDatesByUser.Keys);
+				ILookup<string, (Messenger Messenger, string ExternalId)> externalIds = await botRepo.GetExternalIdByUserEmail(noOrdersForDatesByUser.Keys);
 				var sender = new MessageSender(AppConfig.Instance);
 				foreach (IGrouping<string, (Messenger Messenger, string ExternalId)> externalIdGroup in externalIds)
 				{
