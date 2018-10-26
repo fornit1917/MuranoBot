@@ -11,7 +11,7 @@ namespace FoodIntegration
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer(AppConfig);
+			optionsBuilder.UseSqlServer(AppConfig.Instance.FoodConnectionString);
 		}
 	}
 }
