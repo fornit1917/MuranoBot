@@ -13,16 +13,9 @@ using MuranoBot.TimeTracking.App.Models;
 using MuranoBot.TimeTracking.App.Infrastructure;
 using MuranoBot.TimeTracking.App.Infrastructure.Repositories;
 
-namespace MuranoBot.TimeTracking.Tests {
+namespace MuranoBot.TimeTracking.Tests.Application {
 	[TestClass]
-	public class VacationsAppTest {
-
-		public VacationsAppTest() {
-			var appConfig = AppConfig.Instance;
-			appConfig.TimeTrackerConnectionString = @"Server=localhost;Database=TimeTrackerNew;Trusted_Connection=True;";
-		}
-
-
+	public class VacationsAppTest : TestBase {
 		[TestMethod]
 		public void GetVacationInfoTest() {
 			using(new TransactionScope(TransactionScopeOption.RequiresNew))

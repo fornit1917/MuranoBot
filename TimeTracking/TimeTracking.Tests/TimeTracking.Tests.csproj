@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>MuranoBot.TimeTracking.Tests</AssemblyName>
+
+    <RootNamespace>MuranoBot.TimeTracking.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -9,6 +9,7 @@ namespace MuranoBot.TimeTracking.App.Infrastructure {
 	public class TimeTrackerDbContext : DbContext, IUnitOfWork {
 
 		public DbSet<Vacation> Vacations { get; set; }
+		public DbSet<User> Users { get; set; }
 
 		public TimeTrackerDbContext() { }
 
