@@ -12,10 +12,18 @@ namespace MuranoBot.TimeTracking.App.Infrastructure {
 			builder.RegisterType<TimeTrackerDbContext>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
+
 			builder.RegisterType<VacationsRepository>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
 			builder.RegisterType<VacationsApp>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+
+			builder.RegisterType<UsersRepository>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+			builder.RegisterType<UsersApp>()
 				.AsSelf()
 				.InstancePerLifetimeScope();
 		}
