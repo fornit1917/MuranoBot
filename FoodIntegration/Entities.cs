@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodIntegration
 {
-	[Table("Menu")]
+	[Table(nameof(Menu))]
 	public class Menu
 	{
 		public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace FoodIntegration
 		public int Ordered { get; set; }
 	}
 
-	[Table("User")]
+	[Table(nameof(User))]
 	public class User
 	{
 		public int Id { get; set; }

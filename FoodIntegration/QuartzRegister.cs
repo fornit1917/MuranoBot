@@ -14,8 +14,8 @@ namespace FoodIntegration {
 			var userEmailsTrigger = TriggerBuilder.Create()
 				.WithIdentity("NewMenuCheckCron")
 				.StartNow()
-				.WithCronSchedule("0 0 12 ? * MON,TUE,WED,THU,FRI *")
-				//.WithCronSchedule("0/10 * * ? * * *")
+				//.WithCronSchedule("0 0 12 ? * MON,TUE,WED,THU,FRI *")
+				.WithCronSchedule("0/10 * * ? * * *")
 				.Build();
 
 			scheduler.ScheduleJob(userEmailsJob, userEmailsTrigger).Wait();
@@ -26,8 +26,8 @@ namespace FoodIntegration {
 			var adminEmailsTrigger = TriggerBuilder.Create()
 				.WithIdentity("OrderIsMadeCron")
 				.StartNow()
-				.WithCronSchedule("0 0 10/2 ? * MON,TUE,WED,THU,FRI *")
-				//.WithCronSchedule("0/10 * * ? * * *")
+				//.WithCronSchedule("0 0 10/2 ? * MON,TUE,WED,THU,FRI *")
+				.WithCronSchedule("0/10 * * ? * * *")
 				.Build();
 
 			await scheduler.ScheduleJob(adminEmailsJob, adminEmailsTrigger);
