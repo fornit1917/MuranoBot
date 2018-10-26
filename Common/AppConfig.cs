@@ -9,5 +9,6 @@
 		public bool RunTelegramBot { get; set; }
 		public string SlackToken { get; set; }
 		public string FoodConnectionString { get; set; }
+		public string TimeTrackerConnectionString { get; set; }
 	}
 }

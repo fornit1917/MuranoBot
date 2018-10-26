@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Common;
 using MuranoBot.TimeTracking.App.Models;
 
 namespace MuranoBot.TimeTracking.App.Infrastructure {
@@ -20,7 +21,7 @@ namespace MuranoBot.TimeTracking.App.Infrastructure {
 		}
 		
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-			optionsBuilder.UseSqlServer(@"Server=localhost;Database=TimeTrackerNew;Trusted_Connection=True;");
+			optionsBuilder.UseSqlServer(AppConfig.Instance.TimeTrackerConnectionString);
 		}
 	}
 }

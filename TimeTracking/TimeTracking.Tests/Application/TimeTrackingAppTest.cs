@@ -5,6 +5,7 @@ using System.Transactions;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Common;
 using MuranoBot.TimeTracking.App.Application;
 using MuranoBot.TimeTracking.App.Application.Models;
 using MuranoBot.TimeTracking.App.Application.Models.Shared;
@@ -15,6 +16,12 @@ using MuranoBot.TimeTracking.App.Infrastructure.Repositories;
 namespace MuranoBot.TimeTracking.Tests {
 	[TestClass]
 	public class TimeTrackingAppTest {
+
+		public TimeTrackingAppTest() {
+			var appConfig = AppConfig.Instance;
+			appConfig.TimeTrackerConnectionString = @"Server=localhost;Database=TimeTrackerNew;Trusted_Connection=True;";
+		}
+
 
 		[TestMethod]
 		public void GetVacationInfoTest() {
