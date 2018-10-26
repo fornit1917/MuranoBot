@@ -28,9 +28,10 @@ namespace App
 
 			// scoped services
 			services.AddScoped<MessageHandler>();
+            services.AddScoped<MessageSender>();
 
-			// hosted services
-			if (appConfig.RunSlackBot)
+            // hosted services
+            if (appConfig.RunSlackBot)
 			{
 				services.AddHostedService<SlackListener>();
 			}
