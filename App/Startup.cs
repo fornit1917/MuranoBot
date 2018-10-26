@@ -10,6 +10,7 @@ using Messengers.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MuranoBot.TimeTracking.App.Infrastructure;
+using MuranoBot.Application.Infrastructure;
 
 namespace App
 {
@@ -44,8 +45,9 @@ namespace App
 
 			// Autofac
 			var builder = new ContainerBuilder();
-			builder.RegisterModule(new TimeTrackingApplicationModule());
 			builder.Populate(services);
+			builder.RegisterModule(new TimeTrackingApplicationModule());
+			builder.RegisterModule(new MediatorModule());
 			return new AutofacServiceProvider(builder.Build());
 		}
 

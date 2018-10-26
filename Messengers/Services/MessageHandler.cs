@@ -3,21 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using MuranoBot.TimeTracking.App.Application;
 using Common;
 using SlackAPI;
+using MediatR;
+using MuranoBot.Application.Commands;
 
 namespace Messengers.Services
 {
     public class MessageHandler
     {
         private MessageSender _messageSender;
-		private readonly VacationsApp _vacationsApp;
+		private readonly IMediator _mediator;
 
-        public MessageHandler(MessageSender messageSender, VacationsApp vacationsApp)
+        public MessageHandler(MessageSender messageSender, IMediator mediator)
         {
             _messageSender = messageSender;
-			_vacationsApp = vacationsApp;
+			_mediator = mediator;
         }
 
         public Task HandleRequestAsync(BotRequest botRequest)
@@ -41,8 +42,10 @@ namespace Messengers.Services
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
             {
+				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, vacationInfoRequest.Name));
+
                 botResponse = new BotResponse() { Text = "Vacation info request for: " + vacationInfoRequest.Name };
-                return _messageSender.SendAsync(destination, botResponse);
+				return _messageSender.SendAsync(destination, botResponse);
             }
 
             botResponse = new BotResponse() { Text = "Unknown command: " + botRequest.Text };
