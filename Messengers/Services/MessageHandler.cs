@@ -22,15 +22,15 @@ namespace Messengers.Services
         public async Task HandleRequestAsync(BotRequest botRequest)
         {
             // default destination (sender)
-            Destination destination = new Destination() { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
+            Destination destination = new Destination { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
             BotResponse botResponse;
 
             if (botRequest.IsDirectMessage)
             {
-	            bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.ChannelId);
+	            bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.UserId);
 	            if (!isRegistered)
 	            {
-		            Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.ChannelId);
+		            Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.UserId);
 		            string link = "http://localhost:55659/api/auth/" + authToken; // todo take from config
 					botResponse = new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" };
 		            await _messageSender.SendAsync(destination, botResponse);

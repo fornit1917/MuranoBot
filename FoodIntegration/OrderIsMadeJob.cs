@@ -26,7 +26,7 @@ namespace FoodIntegration
 				{
 					string dates = string.Join(", ", noOrdersForDatesByUser[externalIdGroup.Key].Select(d => d.ToShortDateString()));
 					string message = $"Еда не заказана на {dates}. Это можно исправить тут {AppConfig.Instance.FoodMenuLink}";
-					Destination[] destinations = externalIdGroup.Select(g => new Destination { Messenger = g.Messenger, ChannelId = g.ExternalId }).ToArray();
+					Destination[] destinations = externalIdGroup.Select(g => new Destination { Messenger = g.Messenger, UserId = g.ExternalId }).ToArray();
 					await sender.SendAsync(destinations, new BotResponse {Text = message});
 				}
 			}
