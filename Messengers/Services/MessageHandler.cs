@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using MuranoBot.TimeTracking.App.Application;
 using Common;
 using SlackAPI;
 
@@ -11,10 +12,12 @@ namespace Messengers.Services
     public class MessageHandler
     {
         private MessageSender _messageSender;
+		private readonly VacationsApp _vacationsApp;
 
-        public MessageHandler(MessageSender messageSender)
+        public MessageHandler(MessageSender messageSender, VacationsApp vacationsApp)
         {
             _messageSender = messageSender;
+			_vacationsApp = vacationsApp;
         }
 
         public Task HandleRequestAsync(BotRequest botRequest)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using App.Services;
 using Common;
 using Messengers.Services;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using MuranoBot.TimeTracking.App.Infrastructure;
 
 namespace App
 {
@@ -19,7 +23,7 @@ namespace App
 		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
+		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
 			// config
 			var appConfig = AppConfig.Instance;
@@ -37,6 +41,12 @@ namespace App
 			}
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			// Autofac
+			var builder = new ContainerBuilder();
+			builder.RegisterModule(new TimeTrackingApplicationModule());
+			builder.Populate(services);
+			return new AutofacServiceProvider(builder.Build());
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
