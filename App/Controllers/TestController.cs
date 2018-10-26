@@ -14,7 +14,7 @@ namespace App.Controllers
         [HttpGet("")]
         public string Index()
         {
-            return "Hello!";
+            return "Hello! " + User.Identity.Name;
         }
     }
 }
