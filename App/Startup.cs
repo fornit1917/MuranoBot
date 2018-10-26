@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using App.Services;
 using Common;
 using Messengers.Services;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace App
 {
@@ -17,6 +19,7 @@ namespace App
 		}
 
 		public IConfiguration Configuration { get; }
+		public IContainer ApplicationContainer { get; private set; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -26,10 +29,6 @@ namespace App
 			Configuration.GetSection("AppConfig").Bind(appConfig);
 			services.AddSingleton<AppConfig>(appConfig);
 
-			// scoped services
-			services.AddScoped<MessageHandler>();
-            services.AddScoped<MessageSender>();
-
             // hosted services
             if (appConfig.RunSlackBot)
 			{
@@ -37,6 +36,19 @@ namespace App
 			}
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			// Autofac
+			var builder = new ContainerBuilder();
+			builder.Populate(services);
+
+			builder.RegisterType<MessageHandler>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+			builder.RegisterType<MessageSender>()
+				.AsSelf()
+				.InstancePerLifetimeScope();
+			ApplicationContainer = builder.Build();
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
