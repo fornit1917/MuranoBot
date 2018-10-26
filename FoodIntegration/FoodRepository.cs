@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -7,17 +8,17 @@ namespace FoodIntegration
 {
 	public class FoodRepository
 	{
-		public async Task<DateTime[]> NewMenuDates(DateTime lastMenuDate)
+		public Task<DateTime[]> NewMenuDates(DateTime lastMenuDate)
 		{
 			using (var ctx = new FoodDbContext())
 			{
 				IQueryable<DateTime> query = ctx.Menus.Where(m => m.Date > lastMenuDate)
 					.Select(m => m.Date).Distinct();
-				return await query.ToArrayAsync();
+				return query.ToArrayAsync();
 			}
 		}
 
-		public async Task<(string, DateTime[])[]> NoOrdersForDatesByUser(DateTime[] actualMenuDates)
+		public async Task<Dictionary<string, DateTime[]>> NoOrderDatesByUserEmail(DateTime[] actualMenuDates)
 		{
 			DateTime menuStartDate = actualMenuDates.Min();
 			using (var ctx = new FoodDbContext())
@@ -34,8 +35,7 @@ namespace FoodIntegration
 					};
 				var userOrders = await userOrdersQuery.ToArrayAsync();
 				return userOrders.Where(uo => uo.DatesWithOrder.Count() < actualMenuDates.Length)
-					.Select(uo => (uo.Email, actualMenuDates.Except(uo.DatesWithOrder).ToArray()))
-					.ToArray();
+					.ToDictionary(uo => uo.Email, uo => actualMenuDates.Except(uo.DatesWithOrder).ToArray());
 			}
 		}
 	}

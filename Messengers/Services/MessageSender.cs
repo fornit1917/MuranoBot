@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SlackAPI;
 using Messengers.Models;
@@ -40,7 +41,7 @@ namespace Messengers.Services
 
         public Task SendAsync(IEnumerable<Destination> destinations, BotResponse botResponse)
         {
-            throw new NotImplementedException();
+	        return Task.WhenAll(destinations.Select(d => SendAsync(d, botResponse)));
         }
     }
 }

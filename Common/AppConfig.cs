@@ -11,5 +11,6 @@
 		public string SlackToken { get; set; }
 		public string FoodConnectionString { get; set; }
 		public string MainConnectionString { get; set; }
+		public string FoodMenuLink { get; set; }
 	}
 }
