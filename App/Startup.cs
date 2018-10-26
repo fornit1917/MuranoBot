@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using Common;
 using Messengers.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MuranoBot.TimeTracking.App.Infrastructure;
 
 namespace App
 {
@@ -19,15 +21,18 @@ namespace App
 		}
 
 		public IConfiguration Configuration { get; }
-		public IContainer ApplicationContainer { get; private set; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
+		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
 			// config
 			var appConfig = AppConfig.Instance;
 			Configuration.GetSection("AppConfig").Bind(appConfig);
 			services.AddSingleton<AppConfig>(appConfig);
+
+			// scoped services
+			services.AddScoped<MessageHandler>();
+            services.AddScoped<MessageSender>();
 
             // hosted services
             if (appConfig.RunSlackBot)
@@ -39,16 +44,9 @@ namespace App
 
 			// Autofac
 			var builder = new ContainerBuilder();
+			builder.RegisterModule(new TimeTrackingApplicationModule());
 			builder.Populate(services);
-
-			builder.RegisterType<MessageHandler>()
-				.AsSelf()
-				.InstancePerLifetimeScope();
-			builder.RegisterType<MessageSender>()
-				.AsSelf()
-				.InstancePerLifetimeScope();
-			ApplicationContainer = builder.Build();
-
+			return new AutofacServiceProvider(builder.Build());
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
