@@ -11,14 +11,23 @@ namespace Messengers.Services
     public class MessageSender
     {
         private SlackTaskClient _slackClient;
+        private bool _isMocked;
 
         public MessageSender(AppConfig appConfig)
         {
             _slackClient = new SlackTaskClient(appConfig.SlackToken);
+            _isMocked = appConfig.MockSender;
         }
 
         public Task SendAsync(Destination destination, BotResponse botResponse)
         {
+            if (_isMocked)
+            {
+                Console.WriteLine($"{destination.Messenger.ToString()}, {destination.ChannelId}, {destination.UserId}: {botResponse.Text}");
+                Console.WriteLine("-------------------------------------------------------");
+                return Task.CompletedTask;
+            }
+
             switch (destination.Messenger)
             {
                 case Messenger.Slack:

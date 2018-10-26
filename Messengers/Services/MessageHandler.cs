@@ -27,11 +27,11 @@ namespace Messengers.Services
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
             {
-                botResponse = new BotResponse() { Text = "Запрос информации об отпуске для сотрудника " + vacationInfoRequest.Name };
+                botResponse = new BotResponse() { Text = "Vacation info request for: " + vacationInfoRequest.Name };
                 return _messageSender.SendAsync(destination, botResponse);
             }
 
-            botResponse = new BotResponse() { Text = "Неизвестная команда: " + botRequest.Text };
+            botResponse = new BotResponse() { Text = "Unknown command: " + botRequest.Text };
             return _messageSender.SendAsync(destination, botResponse);
         }
 
