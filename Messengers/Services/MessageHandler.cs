@@ -26,7 +26,7 @@ namespace Messengers.Services
             if (botRequest.IsDirectMessage)
             {
                 // botRequest.ChannelId - это наш "ExternalUserId"
-                // проверяем, привязан ли по нему аккаунт
+                // проверяем, привязан ли по нему и по botRequest.Messenger аккаунт
                 // если нет - предлагаем привязать вот так:
 
                 // botResponse = new BotResponse() { Text = "Перейди по ссылке..." };
