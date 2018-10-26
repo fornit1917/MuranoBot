@@ -13,10 +13,16 @@ namespace MuranoBot.TimeTracking.App.Infrastructure.Repositories {
 			_dbContext = dbContext;
 		}
 
+		public IUnitOfWork UnitOfWork => _dbContext;
+
 		public Vacation Get(int userId, DateTime at) {
 			return _dbContext.Vacations
 				.Where(x => x.UserId == userId && x.DateFrom <= at && at <= x.DateTo)
 				.FirstOrDefault();
+		}
+
+		public Vacation Add(Vacation vacation) {
+			return _dbContext.Vacations.Add(vacation).Entity;
 		}
 	}
 }

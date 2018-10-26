@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MuranoBot.TimeTracking.App.Models;
 
 namespace MuranoBot.TimeTracking.App.Infrastructure {
-	public class TimeTrackerDbContext : DbContext {
+	public class TimeTrackerDbContext : DbContext, IUnitOfWork {
 
 		public DbSet<Vacation> Vacations { get; set; }
 
