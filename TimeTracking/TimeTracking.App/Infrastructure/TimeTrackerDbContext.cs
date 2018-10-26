@@ -7,7 +7,6 @@ using MuranoBot.TimeTracking.App.Models;
 
 namespace MuranoBot.TimeTracking.App.Infrastructure {
 	public class TimeTrackerDbContext : DbContext, IUnitOfWork {
-
 		public DbSet<Vacation> Vacations { get; set; }
 		public DbSet<User> Users { get; set; }
 
@@ -18,7 +17,9 @@ namespace MuranoBot.TimeTracking.App.Infrastructure {
 
 		}
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder) { 
+		protected override void OnModelCreating(ModelBuilder modelBuilder) {
+			modelBuilder.Entity<User>()
+				.ToTable("TT_BaseUsers");
 		}
 		
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

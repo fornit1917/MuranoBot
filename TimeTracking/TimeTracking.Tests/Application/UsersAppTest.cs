@@ -20,10 +20,18 @@ namespace MuranoBot.TimeTracking.Tests.Application {
 			using(new TransactionScope(TransactionScopeOption.RequiresNew))
 			using (var dbContext = new TimeTrackerDbContext()) {
 				// Arrange
+				string domainName = @"CORP\Maxim.Rozhkov";
+				int userId = 1091;
+				string email = "maxim.rozhkov@muranosoft.com";
+				var app = new UsersApp(new UsersRepository(dbContext));
 
 				// Act
+				var rc = app.GetUserInfo(domainName);
 
 				//Assert
+				Assert.AreEqual(userId, rc.Id);
+				Assert.AreEqual(domainName, rc.DomainDame);
+				Assert.AreEqual(email, rc.Email);
 			}
 		}
 	}

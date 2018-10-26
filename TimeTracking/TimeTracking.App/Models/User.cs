@@ -8,5 +8,12 @@ namespace MuranoBot.TimeTracking.App.Models {
 		public int UserId { get; protected set; }
 		public string UserName { get; protected set; }
 		public string Email { get; protected set; }
+
+		public User() { }
+		public User(int userId, string userName, string email) {
+			UserId = userId;
+			UserName = userName;
+			Email = email;
+		}
 	}
 }
