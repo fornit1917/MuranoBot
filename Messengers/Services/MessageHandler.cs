@@ -1,27 +1,31 @@
-﻿using System;
-using System.IO;
-using Messengers.Models;
+﻿using Messengers.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
-using Domain;
-using Microsoft.Extensions.Hosting;
+using MuranoBot.TimeTracking.App.Application;
+using Common;
+using SlackAPI;
 
 namespace Messengers.Services
 {
     public class MessageHandler
     {
-        private readonly MessageSender _messageSender;
-	    private readonly BotRepository _botRepository;
+        private MessageSender _messageSender;
+		private readonly VacationsApp _vacationsApp;
+		private readonly BotRepository _botRepository;
 
-		public MessageHandler(MessageSender messageSender, BotRepository botRepository)
+        public MessageHandler(MessageSender messageSender, VacationsApp vacationsApp, BotRepository botRepository)
         {
-	        _messageSender = messageSender;
-	        _botRepository = botRepository;
+            _messageSender = messageSender;
+			_vacationsApp = vacationsApp;
+			_botRepository = botRepository;
         }
 
-        public async Task HandleRequestAsync(BotRequest botRequest)
+        public Task HandleRequestAsync(BotRequest botRequest)
         {
             // default destination (sender)
-            Destination destination = new Destination { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
+            Destination destination = new Destination() { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
             BotResponse botResponse;
 
             if (botRequest.IsDirectMessage)
