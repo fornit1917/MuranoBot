@@ -19,7 +19,13 @@ namespace Messengers.Services
 
         public Task HandleRequestAsync(BotRequest botRequest)
         {
-            return _slackClient.PostMessageAsync(botRequest.ChannelId, "Эхо: " + botRequest.Text);
+            var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
+            if (vacationInfoRequest != null)
+            {
+                return _slackClient.PostMessageAsync(botRequest.ChannelId, "Запрос информации об отпуске для сотрудника " + vacationInfoRequest.Name);
+            }
+
+            return _slackClient.PostMessageAsync(botRequest.ChannelId, "Неизвестный запрос: " + botRequest.Text);
         }
     }
 }
