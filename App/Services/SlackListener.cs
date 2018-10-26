@@ -35,6 +35,7 @@ namespace App.Services
                         Messenger = Messenger.Slack,
                         ChannelId = message.ChatHub.Id,
                         UserId = message.User.Id,
+                        IsDirectMessage = message.ChatHub.Type == SlackConnector.Models.SlackChatHubType.DM,
                         Text = message.Text,
                     };
 

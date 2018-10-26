@@ -21,8 +21,19 @@ namespace Messengers.Services
         {
             // default destination (sender)
             Destination destination = new Destination() { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
-
             BotResponse botResponse;
+
+            if (botRequest.IsDirectMessage)
+            {
+                // botRequest.ChannelId - это наш "ExternalUserId"
+                // проверяем, привязан ли по нему и по botRequest.Messenger аккаунт
+                // если нет - предлагаем привязать вот так:
+
+                // botResponse = new BotResponse() { Text = "Перейди по ссылке..." };
+                // return _messageSender.SendAsync(destination, botResponse);
+
+                // если привязан, то всё ок, ничего не делаем, идём дальше
+            }
 
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
