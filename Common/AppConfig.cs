@@ -19,5 +19,7 @@
         public int TelegramProxyPort { get; set; }
 		public string SlackOfficeChat { get; set; }
 		public string BindAccountUrl { get; set; }
+		public string NewMenuCheckJobSchedule { get; set; }
+		public string OrderIsMadeJobSchedule { get; set; }
 	}
 }

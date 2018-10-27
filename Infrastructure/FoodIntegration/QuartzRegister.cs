@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Autofac;
+using MuranoBot.Common;
 using Quartz;
 
 namespace FoodIntegration
@@ -8,8 +9,10 @@ namespace FoodIntegration
 	{
 		public static async Task Run(IContainer container)
 		{
-			var schedulerF = container.Resolve<ISchedulerFactory>();
-			var scheduler = await schedulerF.GetScheduler();
+			var schedulerFactory = container.Resolve<ISchedulerFactory>();
+			var appConfig = container.Resolve<AppConfig>();
+
+			IScheduler scheduler = await schedulerFactory.GetScheduler();
 			await scheduler.Start();
 
 			var userEmailsJob = JobBuilder.Create<NewMenuCheckJob>()
@@ -19,7 +22,7 @@ namespace FoodIntegration
 				.WithIdentity("NewMenuCheckCron")
 				.StartNow()
 				//.WithCronSchedule("0 0 12 ? * MON,TUE,WED,THU,FRI *")
-				.WithCronSchedule("0/10 * * ? * * *")
+				.WithCronSchedule(appConfig.NewMenuCheckJobSchedule)
 				.Build();
 
 			await scheduler.ScheduleJob(userEmailsJob, userEmailsTrigger);
@@ -31,7 +34,7 @@ namespace FoodIntegration
 				.WithIdentity("OrderIsMadeCron")
 				.StartNow()
 				//.WithCronSchedule("0 0 11/2 ? * MON,TUE,WED,THU,FRI *")
-				.WithCronSchedule("10/10 * * ? * * *")
+				.WithCronSchedule(appConfig.OrderIsMadeJobSchedule)
 				.Build();
 
 			await scheduler.ScheduleJob(adminEmailsJob, adminEmailsTrigger);
