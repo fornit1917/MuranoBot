@@ -12,6 +12,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
 using MuranoBot.Application.Infrastructure;
+using SkypeIntegration;
 
 namespace App
 {
@@ -50,6 +51,7 @@ namespace App
 			builder.Populate(services);
 			builder.RegisterModule(new TimeTrackingApplicationModule());
 			builder.RegisterModule(new MediatorModule());
+			builder.RegisterModule(new SkypeApplicationModule());
 			return new AutofacServiceProvider(builder.Build());
 		}
 
