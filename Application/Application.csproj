@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.2.0" />
     <PackageReference Include="MediatR" Version="5.1.0" />
+    <PackageReference Include="SlackAPI" Version="1.0.5.93" />
   </ItemGroup>
 
   <ItemGroup>

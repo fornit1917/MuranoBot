@@ -7,6 +7,8 @@ namespace MuranoBot.Infrastructure.TimeTracking.App.Models {
 		public int Id { get; protected set; }
 		public int UserId { get; protected set; }
 
+		public virtual User User { get; set; }
+
 		public DateTime DateFrom { get; protected set; }
 		public DateTime DateTo { get; protected set; }
 

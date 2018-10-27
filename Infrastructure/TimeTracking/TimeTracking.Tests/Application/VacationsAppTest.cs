@@ -22,14 +22,15 @@ namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 			using (var dbContext = new TimeTrackerDbContext()) {
 				// Arrange
 				int userId = 1091;
+				string domainName = @"CORP\Maxim.Rozhkov";
 				DateTime from = new DateTime(2018, 08, 24);
 				DateTime to = new DateTime(2018, 09, 12);
 				dbContext.Vacations.Add(new Vacation(userId, from, to));
 				dbContext.SaveChanges();
-				var app = new VacationsApp(new VacationsRepository(dbContext));
+				var app = new VacationsApp(new UsersRepository(dbContext), new VacationsRepository(dbContext));
 
 				// Act
-				var rc = app.GetVacationInfo(userId, new DateTime(2018, 08, 27));
+				var rc = app.GetVacationInfo(domainName, new DateTime(2018, 08, 27));
 
 				//Assert
 				Assert.AreEqual(rc.Interval.Start, from);
@@ -42,20 +43,20 @@ namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 			using(new TransactionScope(TransactionScopeOption.RequiresNew))
 			using (var dbContext = new TimeTrackerDbContext()) {
 				// Arrange
-				int userId = 1091;
+				string domainName = @"CORP\Maxim.Rozhkov";
 				DateTime from = new DateTime(2018, 08, 24);
 				DateTime to = new DateTime(2018, 09, 12);
-				var app = new VacationsApp(new VacationsRepository(dbContext));
+				var app = new VacationsApp(new UsersRepository(dbContext), new VacationsRepository(dbContext));
 
 				// Act
 				app.SetVacation(new VacationInfo {
-					UserId = userId,
+					DomainName = domainName,
 					Interval = new TimeInterval(from, to),
 				});
 
 				//Assert
 				var vacation = dbContext.Vacations
-					.Where(x => x.UserId == userId && x.DateFrom == from && x.DateTo == to);
+					.Where(x => x.User.UserName == domainName && x.DateFrom == from && x.DateTo == to);
 				Assert.IsNotNull(vacation);
 			}
 		}
