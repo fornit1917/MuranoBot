@@ -40,7 +40,7 @@ namespace Messengers.Services
 
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
 			if (vacationInfoRequest != null) {
-				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, vacationInfoRequest.Name));
+				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, botRequest.ChannelId, vacationInfoRequest.Name));
             } else {
 				var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
 				_mediator.Send(command);
