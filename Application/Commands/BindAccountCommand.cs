@@ -9,7 +9,7 @@ namespace MuranoBot.Application.Commands
 {
 	public class BindAccountCommand : BaseCommand, IRequest<bool>
 	{
-		public BindAccountCommand(Messenger sourceMessenger, string sourceChannnelId, string sourceUserId) : base(sourceMessenger, sourceChannnelId, sourceUserId)
+		public BindAccountCommand(Messenger sourceMessenger, string sourceChannelId, string sourceUserId) : base(sourceMessenger, sourceChannelId, sourceUserId)
 		{
 		}
 	}

@@ -16,9 +16,9 @@ namespace MuranoBot.Infrastructure.TimeTracking.App.Application {
 
 		public VacationInfo GetVacationInfo(string domainName, DateTime at) {
 			var vacation = _vacationsRepository.Get(domainName, at);
-			return new VacationInfo {
+			return vacation != null ? new VacationInfo {
 				Interval = new TimeInterval(vacation.DateFrom, vacation.DateTo)
-			};
+			} : null;
 		}
 
 		public void SetVacation(VacationInfo info) {
