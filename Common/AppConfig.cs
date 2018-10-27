@@ -9,6 +9,8 @@
 		public bool RunTelegramBot { get; set; }
         public bool MockSender { get; set; }
 		public string SlackToken { get; set; }
+		public string SkypeLogin { get; set; }
+		public string SkypePassword { get; set; }
 		public string FoodConnectionString { get; set; }
 		public string TimeTrackerConnectionString { get; set; }
 		public string MainConnectionString { get; set; }

@@ -17,7 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracking.Tests", "TimeT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodIntegration", "FoodIntegration\FoodIntegration.csproj", "{47CB3805-253F-4F45-A8DD-654245C3612C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{EA538AB5-9FC0-4ACB-873F-F2A2D0454075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{EA538AB5-9FC0-4ACB-873F-F2A2D0454075}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SkypeIntegration", "SkypeIntegration", "{8A2176A8-7A5B-42E2-A68A-DC1724DA63AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkypeIntegration", "SkypeIntegration\SkypeSender\SkypeIntegration.csproj", "{6BD657B9-9F1E-4F4B-9F90-736416469484}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationSkypeSenderTests", "SkypeIntegration\IntegrationSkypeSenderTests\IntegrationSkypeSenderTests.csproj", "{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,14 @@ Global
 		{EA538AB5-9FC0-4ACB-873F-F2A2D0454075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA538AB5-9FC0-4ACB-873F-F2A2D0454075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA538AB5-9FC0-4ACB-873F-F2A2D0454075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD657B9-9F1E-4F4B-9F90-736416469484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD657B9-9F1E-4F4B-9F90-736416469484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD657B9-9F1E-4F4B-9F90-736416469484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD657B9-9F1E-4F4B-9F90-736416469484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +74,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E64B0C2D-51F8-42A9-BAD1-FF2C55D5955F} = {4072E58A-3467-4E01-AE88-FF72F6630FBA}
 		{562F2963-7BCA-4668-AD1A-38E2A86691EC} = {4072E58A-3467-4E01-AE88-FF72F6630FBA}
+		{6BD657B9-9F1E-4F4B-9F90-736416469484} = {8A2176A8-7A5B-42E2-A68A-DC1724DA63AF}
+		{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6} = {8A2176A8-7A5B-42E2-A68A-DC1724DA63AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75644B75-7753-4ACA-B449-A1BA5DD5E626}
