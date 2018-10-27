@@ -19,7 +19,7 @@ namespace MuranoBot.Application.Commands {
             Destination destination = new Destination {
 				ChannelId = command.ChannelId,
 				UserId = command.UserId,
-				Messenger = Messenger.Slack,
+				Messenger = command.Messenger,
 			};
 			var botResponse = new BotResponse { Text = $"Команду '{command.Text}' я не знаю" };
 

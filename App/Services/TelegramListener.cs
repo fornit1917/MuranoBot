@@ -41,7 +41,19 @@ namespace App.Services
 
         private void OnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
-            Console.WriteLine(messageEventArgs.Message.Text);
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                MessageHandler messageHandler = scope.ServiceProvider.GetService<MessageHandler>();
+                var botRequest = new BotRequest()
+                {
+                    Messenger = Messenger.Telegram,
+                    ChannelId = messageEventArgs.Message.Chat.Id.ToString(),
+                    UserId = messageEventArgs.Message.From.Id.ToString(),
+                    IsDirectMessage = messageEventArgs.Message.Chat.Type == ChatType.Private,
+                    Text = messageEventArgs.Message.Text,
+                };
+                messageHandler.HandleRequestAsync(botRequest);
+            }
         }
     }
 }

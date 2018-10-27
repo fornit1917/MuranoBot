@@ -23,7 +23,7 @@ namespace MuranoBot.Application.Commands {
 			Destination destination = new Destination {
 				ChannelId = command.ChannelId,
 				UserId = command.UserId,
-				Messenger = Messenger.Slack,
+				Messenger = command.Messenger,
 			};
 
 			var rc = _vacationsApp.GetVacationInfo(1091, new DateTime(2018, 08, 27));

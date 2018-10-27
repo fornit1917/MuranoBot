@@ -51,7 +51,7 @@ namespace MuranoBot.Infrastructure.MessageParsers
                 return;
             }
 
-            var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
+            var command = new UnknownCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, botRequest.Text);
             _mediator.Send(command);
         }
 
@@ -60,7 +60,7 @@ namespace MuranoBot.Infrastructure.MessageParsers
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
             {
-                _mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, botRequest.ChannelId, vacationInfoRequest.Name));
+                _mediator.Send(new CheckVacationCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, botRequest.ChannelId, vacationInfoRequest.Name));
                 return true;
             }
             return false;

@@ -12,10 +12,9 @@ namespace MuranoBot.Application.Commands
         public string Text { get; set; }
         public Messenger SourceMessenger { get; set; }
 
-        public RepostCommand(Messenger sourceMessenger, string sourceChannnelId, string sourceUserId, string text) : base(sourceChannnelId, sourceUserId)
+        public RepostCommand(Messenger sourceMessenger, string sourceChannnelId, string sourceUserId, string text) : base(sourceMessenger, sourceChannnelId, sourceUserId)
         {
             Text = text;
-            SourceMessenger = sourceMessenger;
         }
     }
 }
