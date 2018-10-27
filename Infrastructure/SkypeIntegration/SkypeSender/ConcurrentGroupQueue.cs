@@ -14,6 +14,10 @@ namespace SkypeIntegration
 			_semaphore.Release();
 		}
 
+		/// <summary>
+		/// Get message for send with high priority (for minimize count of switches between recipients)
+		/// </summary>
+		/// <returns></returns>
 		public KeyValuePair<string, string>? GetNext() {
 			_semaphore.Wait();
 			if (_queue == null || _queue.Count == 0){

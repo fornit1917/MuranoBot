@@ -8,10 +8,15 @@ namespace IntegrationSkypeSenderTests {
 	[TestClass]
 	public class BaseTests {
 		private static SkypeSender _skype;
+		private const string SkypeLogin = "";
+		private const string SkypePassword = "";
+
+		private const string PrivateChatTitle = "Eugene Tikhonov";
+		private const string PublicChatTitle = "Public chat";
 
 		[ClassInitialize]
 		public static void StartService(TestContext context) {
-			_skype = new SkypeSender("appulateautomaionshared@appulatemail.com", "pwdSkyMurBot");
+			_skype = new SkypeSender(SkypeLogin, SkypePassword);
 		}
 
 		[ClassCleanup]
@@ -21,17 +26,17 @@ namespace IntegrationSkypeSenderTests {
 
 		[TestMethod]
 		public void WriteSomeMessagesToSomeChats() {
-			Assert.IsTrue(_skype.Write("Eugene Tikhonov", "Hello 1"));
-			Assert.IsTrue(_skype.Write("Public chat", "Hello 2"));
-			Assert.IsTrue(_skype.Write("Public chat", "Hello 3"));
-			Assert.IsTrue(_skype.Write("Eugene Tikhonov", "Hello 4"));
+			Assert.IsTrue(_skype.Write(PrivateChatTitle, "Hello 1"), "Error while sending first private message");
+			Assert.IsTrue(_skype.Write(PublicChatTitle, "Hello 2"), "Error while sending first public chat message");
+			Assert.IsTrue(_skype.Write(PublicChatTitle, "Hello 3"), "Error while sending second public chat message");
+			Assert.IsTrue(_skype.Write(PrivateChatTitle, "Hello 4"), "Error while sending second private message");
 		}
 
 		[TestMethod]
 		public void AsyncWriteSomeMessagesToSomeChats() {
-			var to = new [] {
-				"Eugene Tikhonov",
-				"Public chat" 
+			var to = new[] {
+				PrivateChatTitle,
+				PublicChatTitle
 			};
 
 			var tasks = new List<Task<bool>>();
