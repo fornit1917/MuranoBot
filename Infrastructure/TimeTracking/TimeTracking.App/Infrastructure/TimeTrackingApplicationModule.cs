@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using MuranoBot.TimeTracking.App.Application;
-using MuranoBot.TimeTracking.App.Infrastructure.Repositories;
+using MuranoBot.Infrastructure.TimeTracking.App.Application;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure.Repositories;
 
-namespace MuranoBot.TimeTracking.App.Infrastructure {
+namespace MuranoBot.Infrastructure.TimeTracking.App.Infrastructure {
 	public class TimeTrackingApplicationModule : Module {
 
 		protected override void Load(ContainerBuilder builder) {

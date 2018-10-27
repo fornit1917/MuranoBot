@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RootNamespace>MuranoBot.TimeTracking.App</RootNamespace>
-    <AssemblyName>MuranoBot.TimeTracking.App</AssemblyName>
+    <RootNamespace>InfrastructureMuranoBot.TimeTracking.App</RootNamespace>
+    <AssemblyName>MuranoBot.Infrastructure.TimeTracking.App</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common.csproj" />
+    <ProjectReference Include="..\..\..\Common\Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,9 +21,9 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\FoodIntegration\FoodIntegration.csproj" />
+    <ProjectReference Include="..\Infrastructure\FoodIntegration\FoodIntegration.csproj" />
     <ProjectReference Include="..\Messengers\Messengers.csproj" />
-    <ProjectReference Include="..\TimeTracking\TimeTracking.App\TimeTracking.App.csproj" />
+    <ProjectReference Include="..\Infrastructure\TimeTracking\TimeTracking.App\TimeTracking.App.csproj" />
   </ItemGroup>
 
 </Project>

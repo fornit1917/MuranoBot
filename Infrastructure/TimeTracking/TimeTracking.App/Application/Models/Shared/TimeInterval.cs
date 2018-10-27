@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MuranoBot.TimeTracking.App.Application.Models.Shared {
+namespace MuranoBot.Infrastructure.TimeTracking.App.Application.Models.Shared {
 	public class TimeInterval {
 		public DateTime Start { get; set; }
 		public DateTime End { get; set; }

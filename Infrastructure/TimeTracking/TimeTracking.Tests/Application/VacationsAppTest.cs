@@ -6,14 +6,14 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Common;
-using MuranoBot.TimeTracking.App.Application;
-using MuranoBot.TimeTracking.App.Application.Models;
-using MuranoBot.TimeTracking.App.Application.Models.Shared;
-using MuranoBot.TimeTracking.App.Models;
-using MuranoBot.TimeTracking.App.Infrastructure;
-using MuranoBot.TimeTracking.App.Infrastructure.Repositories;
+using MuranoBot.Infrastructure.TimeTracking.App.Application;
+using MuranoBot.Infrastructure.TimeTracking.App.Application.Models;
+using MuranoBot.Infrastructure.TimeTracking.App.Application.Models.Shared;
+using MuranoBot.Infrastructure.TimeTracking.App.Models;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure.Repositories;
 
-namespace MuranoBot.TimeTracking.Tests.Application {
+namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 	[TestClass]
 	public class VacationsAppTest : TestBase {
 		[TestMethod]

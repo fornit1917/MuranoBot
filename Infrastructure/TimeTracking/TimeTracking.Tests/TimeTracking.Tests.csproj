@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>MuranoBot.TimeTracking.Tests</AssemblyName>
+    <AssemblyName>MuranoBot.Infrastructure.TimeTracking.Tests</AssemblyName>
 
-    <RootNamespace>MuranoBot.TimeTracking.Tests</RootNamespace>
+    <RootNamespace>MuranoBot.Infrastructure.TimeTracking.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Common.csproj" />
+    <ProjectReference Include="..\..\..\Common\Common.csproj" />
     <ProjectReference Include="..\TimeTracking.App\TimeTracking.App.csproj" />
   </ItemGroup>
 

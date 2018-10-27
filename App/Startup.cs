@@ -10,7 +10,7 @@ using Domain;
 using Messengers.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using MuranoBot.TimeTracking.App.Infrastructure;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
 using MuranoBot.Application.Infrastructure;
 
 namespace App

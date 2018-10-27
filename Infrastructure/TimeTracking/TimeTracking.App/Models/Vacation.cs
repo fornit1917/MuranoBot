@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MuranoBot.TimeTracking.App.Models {
+namespace MuranoBot.Infrastructure.TimeTracking.App.Models {
 	public class Vacation {
 		public int Id { get; protected set; }
 		public int UserId { get; protected set; }

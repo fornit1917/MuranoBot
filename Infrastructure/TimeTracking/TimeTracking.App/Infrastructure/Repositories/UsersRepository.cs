@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MuranoBot.TimeTracking.App.Models;
-using MuranoBot.TimeTracking.App.Infrastructure;
+using MuranoBot.Infrastructure.TimeTracking.App.Models;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
 
-namespace MuranoBot.TimeTracking.App.Infrastructure.Repositories {
+namespace MuranoBot.Infrastructure.TimeTracking.App.Infrastructure.Repositories {
 	public class UsersRepository {
 		private readonly TimeTrackerDbContext _dbContext;
 

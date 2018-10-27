@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Common;
 
-namespace MuranoBot.TimeTracking.Tests.Application {
+namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 	public class TestBase {
 		public TestBase() {
 			var appConfig = AppConfig.Instance;

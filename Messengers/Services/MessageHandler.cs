@@ -1,7 +1,7 @@
 ﻿using Messengers.Models;
 using System;
 using System.Threading.Tasks;
-using MuranoBot.TimeTracking.App.Application;
+using MuranoBot.Infrastructure.TimeTracking.App.Application;
 using Domain;
 using Common;
 using SlackAPI;
@@ -31,15 +31,15 @@ namespace Messengers.Services
 
             if (botRequest.IsDirectMessage)
             {
-	            bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.UserId);
-	            if (!isRegistered)
-	            {
-		            Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.UserId);
-		            string link = "http://localhost:55659/api/auth/" + authToken; // todo take from config
-					botResponse = new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" };
-		            await _messageSender.SendAsync(destination, botResponse);
-					return;
-				}
+	            //bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.UserId);
+	            //if (!isRegistered)
+	            //{
+		        //    Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.UserId);
+		        //    string link = "http://localhost:55659/api/auth/" + authToken; // todo take from config
+				//	botResponse = new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" };
+		        //    await _messageSender.SendAsync(destination, botResponse);
+				//	return;
+				//}
             }
 
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);

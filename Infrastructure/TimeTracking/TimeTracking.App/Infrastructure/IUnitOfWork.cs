@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MuranoBot.TimeTracking.App.Infrastructure
+namespace MuranoBot.Infrastructure.TimeTracking.App.Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {

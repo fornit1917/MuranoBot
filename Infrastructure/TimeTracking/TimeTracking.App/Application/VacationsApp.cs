@@ -1,10 +1,10 @@
 ﻿using System;
-using MuranoBot.TimeTracking.App.Application.Models;
-using MuranoBot.TimeTracking.App.Application.Models.Shared;
-using MuranoBot.TimeTracking.App.Models;
-using MuranoBot.TimeTracking.App.Infrastructure.Repositories;
+using MuranoBot.Infrastructure.TimeTracking.App.Application.Models;
+using MuranoBot.Infrastructure.TimeTracking.App.Application.Models.Shared;
+using MuranoBot.Infrastructure.TimeTracking.App.Models;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure.Repositories;
 
-namespace MuranoBot.TimeTracking.App.Application {
+namespace MuranoBot.Infrastructure.TimeTracking.App.Application {
 	public class VacationsApp {
 		private readonly VacationsRepository _vacationsRepository;
 		public VacationsApp(VacationsRepository vacationsRepository) {

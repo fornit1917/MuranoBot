@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MuranoBot.TimeTracking.App.Application;
+using MuranoBot.Infrastructure.TimeTracking.App.Application;
 
 namespace MuranoBot.Application.Commands {
 	public class CheckVacationCommandHandler : IRequestHandler<CheckVacationCommand, bool> {
