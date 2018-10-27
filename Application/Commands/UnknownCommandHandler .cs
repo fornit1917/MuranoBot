@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using MuranoBot.Application.Commands.CommandDescriptions;
 using MuranoBot.Domain;
 using MuranoBot.Infrastructure.MessageSenders;
 using MuranoBot.Infrastructure.MessageSenders.Models;
@@ -21,7 +22,9 @@ namespace MuranoBot.Application.Commands {
 				UserId = command.UserId,
 				Messenger = Messenger.Slack,
 			};
-			var botResponse = new BotResponse { Text = $"Команду '{command.Text}' я не знаю" };
+			var text = $"Команду '{command.Text}' я не знаю. Я молод и пока только учусь. Попроси меня о другом: \r\n" +
+			           string.Join("\r\n", CommandUtil.GetAllCommands().Select(c => c.GetCommandDescription()).Select(cd => $"\t* '{cd.Command}': {cd.Hint ?? string.Empty}"));
+			var botResponse = new BotResponse { Text = text };
 
 			_messageSender.SendAsync(destination, botResponse);
 
