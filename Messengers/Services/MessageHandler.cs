@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MuranoBot.TimeTracking.App.Application;
 using Common;
+using SkypeIntegration.Skype;
 using SlackAPI;
 
 namespace Messengers.Services
@@ -12,12 +13,12 @@ namespace Messengers.Services
     public class MessageHandler
     {
         private MessageSender _messageSender;
-		private readonly VacationsApp _vacationsApp;
+		private readonly SkypeSender _skypeSender;
 
-        public MessageHandler(MessageSender messageSender, VacationsApp vacationsApp)
+        public MessageHandler(MessageSender messageSender, SkypeSender skypeSender)
         {
             _messageSender = messageSender;
-			_vacationsApp = vacationsApp;
+			_skypeSender = skypeSender;
         }
 
         public Task HandleRequestAsync(BotRequest botRequest)
@@ -25,6 +26,8 @@ namespace Messengers.Services
             // default destination (sender)
             Destination destination = new Destination() { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
             BotResponse botResponse;
+
+	        _skypeSender.Write("Public chat", botRequest.Text);
 
             if (botRequest.IsDirectMessage)
             {
