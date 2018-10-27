@@ -44,8 +44,13 @@ namespace App
 			{
 				services.AddHostedService<SlackListener>();
 			}
+            if (appConfig.RunTelegramBot)
+            {
+                services.AddHostedService<TelegramListener>();
+            }
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
 
 			// Autofac
 			var builder = new ContainerBuilder();

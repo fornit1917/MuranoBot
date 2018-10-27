@@ -16,5 +16,8 @@
 		public string MainConnectionString { get; set; }
 		public string FoodMenuLink { get; set; }
         public string SkypeOfficeChat { get; set; }
+        public string TelegramToken { get; set; }
+        public string TelegramProxyHost { get; set; }
+        public int TelegramProxyPort { get; set; }
 	}
 }
