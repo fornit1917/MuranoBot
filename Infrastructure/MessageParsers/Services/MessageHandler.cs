@@ -66,7 +66,7 @@ namespace MuranoBot.Infrastructure.MessageParsers
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
             {
-                _mediator.Send(new CheckVacationCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, botRequest.ChannelId, vacationInfoRequest.Name));
+                _mediator.Send(new CheckVacationCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, vacationInfoRequest.Name));
                 return true;
             }
             return false;
@@ -87,7 +87,7 @@ namespace MuranoBot.Infrastructure.MessageParsers
             var request = SetVacationRequest.TryParse(botRequest);
             if (request != null)
             {
-				_mediator.Send(new SetVacationCommand(botRequest.ChannelId, botRequest.UserId, request.From, request.To));
+				_mediator.Send(new SetVacationCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, request.From, request.To));
 				return true;
             }
             return false;
