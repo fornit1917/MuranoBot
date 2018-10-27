@@ -1,5 +1,4 @@
-﻿using MuranoBot.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace MuranoBot.Domain
 {
@@ -8,10 +7,13 @@ namespace MuranoBot.Domain
 		public DbSet<User> Users { get; set; }
 		public DbSet<MessengerLink> MessengerLinks { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlServer(AppConfig.Instance.MainConnectionString);
-		}
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		//{
+		//	optionsBuilder.UseSqlServer(AppConfig.Instance.MainConnectionString);
+		//}
+
+		public DomainDbContext(DbContextOptions<DomainDbContext> options)
+			: base(options) { }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 			modelBuilder.Entity<MessengerLink>().HasKey(e => new { e.Messenger, e.ExternalUserId });

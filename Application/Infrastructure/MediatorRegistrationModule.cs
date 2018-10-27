@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Autofac;
 using MediatR;
 using MuranoBot.Application.Commands;
 
 namespace MuranoBot.Application.Infrastructure {
-	public class MediatorModule : Autofac.Module {
+	public class MediatorRegistrationModule : Autofac.Module {
 		protected override void Load(ContainerBuilder builder) {
 			builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
 				.AsImplementedInterfaces();

@@ -26,7 +26,7 @@ namespace App.Services
         {
             var connector = new SlackConnector.SlackConnector();
             ISlackConnection conn = await connector.Connect(_config.SlackToken);
-			conn.OnMessageReceived += message => Task.Run(() => {
+			conn.OnMessageReceived += message => Task.Run(async () => {
 				using (var scope = _serviceProvider.CreateScope()) {
 					var botRequest = new BotRequest {
 						Messenger = Messenger.Slack,
@@ -37,10 +37,9 @@ namespace App.Services
 					};
 
 					MessageHandler messageHandler = scope.ServiceProvider.GetService<MessageHandler>();
-
-					messageHandler.HandleRequestAsync(botRequest);
+					await messageHandler.HandleRequestAsync(botRequest);
 				}
-			});
+			}, cancellationToken);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

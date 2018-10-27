@@ -2,8 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using MuranoBot.Domain;
-using MuranoBot.Common;
-using SlackAPI;
 using MediatR;
 using MuranoBot.Application.Commands;
 using MessageParsers.Models;
@@ -21,74 +19,68 @@ namespace MuranoBot.Infrastructure.MessageParsers
 			_botRepository = botRepository;
         }
 
-        public void HandleRequestAsync(BotRequest botRequest)
+        public async Task HandleRequestAsync(BotRequest botRequest)
         {
             // default destination (sender)
 
             if (botRequest.IsDirectMessage)
             {
-	            //bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.UserId);
-	            //if (!isRegistered)
-	            //{
-		        //    Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.UserId);
-		        //    string link = "http://localhost:55659/api/auth/" + authToken; // todo take from config
-				//	botResponse = new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" };
-		        //    await _messageSender.SendAsync(destination, botResponse);
-				//	return;
-				//}
-            }
+				bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.UserId);
+				if (!isRegistered) {
+					Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.UserId);
+					string link = "http://localhost:55659/api/auth/" + authToken; // todo take from config
+					//await _messageSender.SendAsync(destination, new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" });
+					return;
+				}
+			}
 
-            bool isSuccess;
-            isSuccess = TryRunCheckVacationCommand(botRequest);
+	        var isSuccess = await TryRunCheckVacationCommand(botRequest);
             if (isSuccess)
             {
                 return;
             }
 
-            isSuccess = TryRunSetVacationCommand(botRequest);
+            isSuccess = await TryRunSetVacationCommand(botRequest);
             if (isSuccess)
             {
                 return;
             }
 
-            isSuccess = TryRunRepostCommand(botRequest);
+            isSuccess = await TryRunRepostCommand(botRequest);
             if (isSuccess)
             {
                 return;
             }
 
             var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
-            _mediator.Send(command);
+            await _mediator.Send(command);
         }
 
-        private bool TryRunCheckVacationCommand(BotRequest botRequest)
+        private async Task<bool> TryRunCheckVacationCommand(BotRequest botRequest)
         {
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
             {
-                _mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, vacationInfoRequest.Name));
-                return true;
+                return await _mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, vacationInfoRequest.Name));
             }
             return false;
         }
 
-        private bool TryRunRepostCommand(BotRequest botRequest)
+        private async Task<bool> TryRunRepostCommand(BotRequest botRequest)
         {
             if (MessageRepostRequest.IsRepostRequest(botRequest))
             {
                 var command = new RepostCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, botRequest.Text);
-                _mediator.Send(command);
-                return true;
+                return await _mediator.Send(command);
             }
             return false;
         }
-        private bool TryRunSetVacationCommand(BotRequest botRequest)
+        private async Task<bool> TryRunSetVacationCommand(BotRequest botRequest)
         {
             var request = SetVacationRequest.TryParse(botRequest);
             if (request != null)
             {
-				_mediator.Send(new SetVacationCommand(botRequest.ChannelId, botRequest.UserId, request.From, request.To));
-				return true;
+	            return await _mediator.Send(new SetVacationCommand(botRequest.ChannelId, botRequest.UserId, request.From, request.To));
             }
             return false;
         }

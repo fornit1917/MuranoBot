@@ -1,5 +1,4 @@
-﻿using MuranoBot.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace FoodIntegration
 {
@@ -9,9 +8,12 @@ namespace FoodIntegration
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<User> Users { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlServer(AppConfig.Instance.FoodConnectionString);
-		}
+		public FoodDbContext(DbContextOptions<FoodDbContext> options)
+			: base(options) { }
+
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		//{
+		//	optionsBuilder.UseSqlServer(AppConfig.Instance.FoodConnectionString);
+		//}
 	}
 }

@@ -1,11 +1,14 @@
 ﻿using System.Threading.Tasks;
+using Autofac;
 using Quartz;
-using Quartz.Impl;
 
-namespace FoodIntegration {
-	public static class QuartzRegister {
-		public static async Task Run() {
-			var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
+namespace FoodIntegration
+{
+	public static class QuartzRegister
+	{
+		public static async Task Run(IContainer container)
+		{
+			var scheduler = container.Resolve<IScheduler>();
 			await scheduler.Start();
 
 			var userEmailsJob = JobBuilder.Create<NewMenuCheckJob>()
@@ -14,11 +17,11 @@ namespace FoodIntegration {
 			var userEmailsTrigger = TriggerBuilder.Create()
 				.WithIdentity("NewMenuCheckCron")
 				.StartNow()
-				.WithCronSchedule("0 0 12 ? * MON,TUE,WED,THU,FRI *")
-				//.WithCronSchedule("0/10 * * ? * * *")
+				//.WithCronSchedule("0 0 12 ? * MON,TUE,WED,THU,FRI *")
+				.WithCronSchedule("0/10 * * ? * * *")
 				.Build();
 
-			scheduler.ScheduleJob(userEmailsJob, userEmailsTrigger).Wait();
+			await scheduler.ScheduleJob(userEmailsJob, userEmailsTrigger);
 
 			var adminEmailsJob = JobBuilder.Create<OrderIsMadeJob>()
 				.WithIdentity("OrderIsMade")
@@ -26,8 +29,8 @@ namespace FoodIntegration {
 			var adminEmailsTrigger = TriggerBuilder.Create()
 				.WithIdentity("OrderIsMadeCron")
 				.StartNow()
-				.WithCronSchedule("0 0 10/2 ? * MON,TUE,WED,THU,FRI *")
-				//.WithCronSchedule("0/10 * * ? * * *")
+				//.WithCronSchedule("0 0 10/2 ? * MON,TUE,WED,THU,FRI *")
+				.WithCronSchedule("0/10 * * ? * * *")
 				.Build();
 
 			await scheduler.ScheduleJob(adminEmailsJob, adminEmailsTrigger);
