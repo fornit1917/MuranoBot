@@ -7,11 +7,6 @@ namespace MuranoBot.Domain
 		public DbSet<User> Users { get; set; }
 		public DbSet<MessengerLink> MessengerLinks { get; set; }
 
-		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		//{
-		//	optionsBuilder.UseSqlServer(AppConfig.Instance.MainConnectionString);
-		//}
-
 		public DomainDbContext(DbContextOptions<DomainDbContext> options)
 			: base(options) { }
 
