@@ -42,7 +42,7 @@ namespace MuranoBot.Application.Commands {
 			VacationInfo rc;
 			try
 			{
-				rc = _vacationsApp.GetVacationInfo(domainName, new DateTime(2018, 08, 27));
+				rc = _vacationsApp.GetVacationInfo(domainName, DateTime.UtcNow);
 			}
 			catch (Exception e)
 			{
