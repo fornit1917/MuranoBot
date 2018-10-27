@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace Messengers.Models
+namespace MuranoBot.Infrastructure.SlackAPI.Models
 {
     public class Destination
     {

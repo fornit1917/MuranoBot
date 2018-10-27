@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common;
 using Domain;
-using Messengers.Models;
-using Messengers.Services;
+using MuranoBot.Infrastructure.SlackAPI;
+using MuranoBot.Infrastructure.SlackAPI.Models;
 using Quartz;
 
 namespace FoodIntegration

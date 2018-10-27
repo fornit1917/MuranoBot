@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "App\App.csproj", "{BD073158-28E5-47B3-BF3A-C61A30982651}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messengers", "Messengers\Messengers.csproj", "{BDAE767A-2B27-4474-9253-6B196D8EC273}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messengers", "Infrastructure\Messengers\Messengers.csproj", "{BDAE767A-2B27-4474-9253-6B196D8EC273}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{C36939E9-ADC7-4A2F-A7A7-96C5179D8DF8}"
 EndProject
@@ -23,11 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracking.App", "Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracking.Tests", "Infrastructure\TimeTracking\TimeTracking.Tests\TimeTracking.Tests.csproj", "{B6A2CD78-ECB4-4548-9533-47B04AB16B27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlackAPI", "SlackAPI\SlackAPI.csproj", "{78629807-B283-490E-AC9A-7A2D8769F10A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlackAPI", "Infrastructure\SlackAPI\SlackAPI.csproj", "{78629807-B283-490E-AC9A-7A2D8769F10A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationSkypeSenderTests", "SkypeIntegration\IntegrationSkypeSenderTests\IntegrationSkypeSenderTests.csproj", "{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationSkypeSenderTests", "Infrastructure\SkypeIntegration\IntegrationSkypeSenderTests\IntegrationSkypeSenderTests.csproj", "{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkypeIntegration", "SkypeIntegration\SkypeSender\SkypeIntegration.csproj", "{E63D81B3-8C2A-4210-980F-D6E314BEBF7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkypeIntegration", "Infrastructure\SkypeIntegration\SkypeSender\SkypeIntegration.csproj", "{E63D81B3-8C2A-4210-980F-D6E314BEBF7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SkypeIntegration", "SkypeIntegration", "{44A579D7-9D53-46FF-B4FD-D598937BFBA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,11 +86,15 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BDAE767A-2B27-4474-9253-6B196D8EC273} = {2D359B81-0896-418A-9343-B0EA15453A93}
 		{19C38857-EBCE-4795-92AB-31B5EFCA100D} = {2D359B81-0896-418A-9343-B0EA15453A93}
 		{30152BE7-DBCB-46F9-A2CE-725649540CA9} = {2D359B81-0896-418A-9343-B0EA15453A93}
 		{41998520-8DB3-4E41-85AA-74AEB916E9D2} = {30152BE7-DBCB-46F9-A2CE-725649540CA9}
 		{B6A2CD78-ECB4-4548-9533-47B04AB16B27} = {30152BE7-DBCB-46F9-A2CE-725649540CA9}
 		{78629807-B283-490E-AC9A-7A2D8769F10A} = {2D359B81-0896-418A-9343-B0EA15453A93}
+		{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6} = {44A579D7-9D53-46FF-B4FD-D598937BFBA5}
+		{E63D81B3-8C2A-4210-980F-D6E314BEBF7A} = {44A579D7-9D53-46FF-B4FD-D598937BFBA5}
+		{44A579D7-9D53-46FF-B4FD-D598937BFBA5} = {2D359B81-0896-418A-9343-B0EA15453A93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75644B75-7753-4ACA-B449-A1BA5DD5E626}

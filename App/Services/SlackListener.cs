@@ -26,24 +26,21 @@ namespace App.Services
         {
             var connector = new SlackConnector.SlackConnector();
             ISlackConnection conn = await connector.Connect(_config.SlackToken);
-            conn.OnMessageReceived += message =>
-            {
-                using (var scope = _serviceProvider.CreateScope())
-                {
-                    var botRequest = new BotRequest
-                    {
-                        Messenger = Messenger.Slack,
-                        ChannelId = message.ChatHub.Id,
-                        UserId = message.User.Id,
-                        IsDirectMessage = message.ChatHub.Type == SlackConnector.Models.SlackChatHubType.DM,
-                        Text = message.Text,
-                    };
+			conn.OnMessageReceived += message => Task.Run(() => {
+				using (var scope = _serviceProvider.CreateScope()) {
+					var botRequest = new BotRequest {
+						Messenger = Messenger.Slack,
+						ChannelId = message.ChatHub.Id,
+						UserId = message.User.Id,
+						IsDirectMessage = message.ChatHub.Type == SlackConnector.Models.SlackChatHubType.DM,
+						Text = message.Text,
+					};
 
-                    MessageHandler messageHandler = scope.ServiceProvider.GetService<MessageHandler>();
+					MessageHandler messageHandler = scope.ServiceProvider.GetService<MessageHandler>();
 
-                    return messageHandler.HandleRequestAsync(botRequest);
-                }
-            };
+					messageHandler.HandleRequestAsync(botRequest);
+				}
+			});
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
