@@ -34,13 +34,13 @@ namespace MuranoBot.Application.Commands {
 			var realName = GetRealName(command.UserId);
 			var domainName = ConvertToDomainName(realName.FirstName, realName.LastName);
 
-			var rc = _vacationsApp.GetVacationInfo(1091, new DateTime(2018, 08, 27));
+			var rc = _vacationsApp.GetVacationInfo(domainName, new DateTime(2018, 08, 27));
 
 			BotResponse botResponse;
 			if (rc != null) {
-				botResponse = new BotResponse { Text = $"'{domainName}' в отпуске с '{rc.Interval.Start}' по '{rc.Interval.End}'" };
+				botResponse = new BotResponse { Text = $"'{realName.FirstName} {realName.LastName}' в отпуске с '{rc.Interval.Start}' по '{rc.Interval.End}'" };
 			} else {
-				botResponse = new BotResponse { Text = $"'{domainName}' не в отпуске" };
+				botResponse = new BotResponse { Text = $"'{realName.FirstName} {realName.LastName}' не в отпуске" };
 			}
 
 			_messageSender.SendAsync(destination, botResponse);
