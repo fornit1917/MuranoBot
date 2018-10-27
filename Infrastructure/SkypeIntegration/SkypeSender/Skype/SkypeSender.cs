@@ -15,7 +15,7 @@ namespace SkypeIntegration.Skype {
 			InitBrowser();
 		}
 
-		public SkypeSender() : this(AppConfig.Instance.SkypeLogin, AppConfig.Instance.SkypePassword) { }
+		public SkypeSender(AppConfig appConfig) : this(appConfig.SkypeLogin, appConfig.SkypePassword) { }
 
 		private ChromeBrowser Browser { get; set; }
 

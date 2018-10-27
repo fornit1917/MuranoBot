@@ -2,8 +2,6 @@
 {
 	public class AppConfig
 	{
-		public static readonly AppConfig Instance = new AppConfig();
-
 		public bool RunSlackBot { get; set; }
 		public bool RunSkypeBot { get; set; }
 		public bool RunTelegramBot { get; set; }

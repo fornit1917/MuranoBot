@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MuranoBot.Application.Commands.CommandDescriptions;
 using MuranoBot.Common;
 using MuranoBot.Domain;
 using MuranoBot.Infrastructure.MessageSenders;
@@ -16,19 +13,20 @@ namespace MuranoBot.Application.Commands
 	{
 		private readonly MessageSender _messageSender;
 		private readonly BotRepository _botRepository;
+		private readonly AppConfig _appConfig;
 
-		public BindAccountCommandHandler(MessageSender messageSender, BotRepository botRepository)
+		public BindAccountCommandHandler(MessageSender messageSender, BotRepository botRepository, AppConfig appConfig)
 		{
 			_messageSender = messageSender;
 			_botRepository = botRepository;
+			_appConfig = appConfig;
 		}
 
 		public async Task<bool> Handle(BindAccountCommand request, CancellationToken cancellationToken)
 		{
 			Guid authToken = await _botRepository.RegisterLink(request.Messenger, request.UserId);
-			string link = AppConfig.Instance.BindAccountUrl + authToken;
-
-			var destination = new Destination() { Messenger = request.Messenger, ChannelId = request.ChannelId, UserId = request.UserId };
+			string link = _appConfig.BindAccountUrl + authToken;
+			var destination = new Destination { Messenger = request.Messenger, ChannelId = request.ChannelId, UserId = request.UserId };
 			await _messageSender.SendAsync(destination, new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" });
 
 			return true;

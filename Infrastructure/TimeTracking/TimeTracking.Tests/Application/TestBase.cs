@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MuranoBot.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
 
 namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
-	public class TestBase {
-		public TestBase() {
-			var appConfig = AppConfig.Instance;
-			appConfig.TimeTrackerConnectionString = @"Server=localhost;Database=TimeTrackerNew;Trusted_Connection=True;";
+	public abstract class TestBase {
+		protected TimeTrackerDbContext CreateTestContext() {
+			var optionsBuilder = new DbContextOptionsBuilder<TimeTrackerDbContext>();
+			optionsBuilder.UseSqlServer("Server=localhost;Database=TimeTrackerNew;Trusted_Connection=True;");
+			return new TimeTrackerDbContext(optionsBuilder.Options);
 		}
 	}
 }

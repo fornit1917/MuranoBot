@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,10 +18,10 @@ namespace MuranoBot.Application.Commands {
 		private readonly MessageSender _messageSender;
 		private readonly SlackClient _slackClient;
 
-		public SetVacationCommandHandler(VacationsApp vacationsApp, MessageSender messageSender) {
+		public SetVacationCommandHandler(VacationsApp vacationsApp, MessageSender messageSender, AppConfig appConfig) {
 			_vacationsApp = vacationsApp;
 			_messageSender = messageSender;
-			_slackClient = new SlackClient(AppConfig.Instance.SlackToken);
+			_slackClient = new SlackClient(appConfig.SlackToken);
 		}
 
 		public Task<bool> Handle(SetVacationCommand command, CancellationToken cancellationToken) {
@@ -46,7 +44,7 @@ namespace MuranoBot.Application.Commands {
 			}
 			catch (Exception e)
 			{
-				_messageSender.SendAsync(destination, new BotResponse() { Text = "К сожалению TimeTracker временно недоступен." });
+				_messageSender.SendAsync(destination, new BotResponse { Text = "К сожалению TimeTracker временно недоступен." });
 				return Task.FromResult(true);
 			}
 

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using MuranoBot.Common;
-using MuranoBot.Domain;
 using MuranoBot.Infrastructure.MessageSenders;
 using MuranoBot.Infrastructure.MessageSenders.Models;
 using MuranoBot.Infrastructure.TimeTracking.App.Application;
@@ -18,10 +15,10 @@ namespace MuranoBot.Application.Commands {
 		private readonly MessageSender _messageSender;
 		private readonly SlackClient _slackClient;
 
-		public CheckVacationCommandHandler(VacationsApp vacationsApp, MessageSender messageSender) {
+		public CheckVacationCommandHandler(VacationsApp vacationsApp, MessageSender messageSender, AppConfig appConfig) {
 			_vacationsApp = vacationsApp;
 			_messageSender = messageSender;
-			_slackClient = new SlackClient(AppConfig.Instance.SlackToken);
+			_slackClient = new SlackClient(appConfig.SlackToken);
 		}
 
 		public Task<bool> Handle(CheckVacationCommand command, CancellationToken cancellationToken) {
@@ -42,7 +39,7 @@ namespace MuranoBot.Application.Commands {
 			}
 			var domainName = ConvertToDomainName(realName.FirstName, realName.LastName);
 
-			VacationInfo rc = null;
+			VacationInfo rc;
 			try
 			{
 				rc = _vacationsApp.GetVacationInfo(domainName, new DateTime(2018, 08, 27));

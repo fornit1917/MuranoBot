@@ -33,9 +33,9 @@ namespace App
 		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
 			// config
-			var appConfig = AppConfig.Instance;
+			var appConfig = new AppConfig();
 			Configuration.GetSection("AppConfig").Bind(appConfig);
-			services.AddSingleton<AppConfig>(appConfig);
+			services.AddSingleton(appConfig);
 
 			// scoped services
 			services.AddScoped<MessageHandler>();

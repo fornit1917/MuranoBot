@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Transactions;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MuranoBot.Common;
 using MuranoBot.Infrastructure.TimeTracking.App.Application;
 using MuranoBot.Infrastructure.TimeTracking.App.Application.Models;
 using MuranoBot.Infrastructure.TimeTracking.App.Application.Models.Shared;
@@ -19,7 +15,7 @@ namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 		[TestMethod]
 		public void GetVacationInfoTest() {
 			using(new TransactionScope(TransactionScopeOption.RequiresNew))
-			using (var dbContext = new TimeTrackerDbContext()) {
+			using (TimeTrackerDbContext dbContext = CreateTestContext()) {
 				// Arrange
 				int userId = 1091;
 				string domainName = @"CORP\Maxim.Rozhkov";
@@ -41,7 +37,7 @@ namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 		[TestMethod]
 		public void SetVacationTest() {
 			using(new TransactionScope(TransactionScopeOption.RequiresNew))
-			using (var dbContext = new TimeTrackerDbContext()) {
+			using (TimeTrackerDbContext dbContext = CreateTestContext()) {
 				// Arrange
 				string domainName = @"CORP\Maxim.Rozhkov";
 				DateTime from = new DateTime(2018, 08, 24);
