@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.csproj" />
     <ProjectReference Include="..\..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\SkypeIntegration\SkypeSender\SkypeIntegration.csproj" />
   </ItemGroup>
 
 </Project>
