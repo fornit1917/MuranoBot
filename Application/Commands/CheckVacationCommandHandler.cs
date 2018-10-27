@@ -30,7 +30,8 @@ namespace MuranoBot.Application.Commands {
 				Messenger = command.Messenger,
 			};
 
-			var realName = GetRealName(command.UserId);
+			// var realName = GetRealName(command.UserId);
+			var realName = GetRealNameByTypedName(command.UserName);
 			var domainName = ConvertToDomainName(realName.FirstName, realName.LastName);
 
 			var rc = _vacationsApp.GetVacationInfo(domainName, new DateTime(2018, 08, 27));
@@ -58,6 +59,18 @@ namespace MuranoBot.Application.Commands {
 			mre.WaitOne();
 
 			return (user.profile.first_name, user.profile.last_name);
+		}
+
+		private (string FirstName, string LastName) GetRealNameByTypedName(string userName)
+		{
+			var parts = userName.Split(' ');
+			parts[0] = parts[0].Trim();
+			if (parts.Length > 1)
+			{
+				parts[1] = parts[1].Trim();
+			}
+
+			return (parts[0].Trim(), parts.Length > 1 ? parts[1].Trim() : "");
 		}
 
 		private string ConvertToDomainName(string firstName, string lastName) {
