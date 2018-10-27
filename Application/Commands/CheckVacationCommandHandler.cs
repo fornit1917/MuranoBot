@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Globalization;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -53,7 +56,9 @@ namespace MuranoBot.Application.Commands {
 
 			BotResponse botResponse;
 			if (rc != null) {
-				botResponse = new BotResponse { Text = $"'{realName.FirstName} {realName.LastName}' в отпуске с '{rc.Interval.Start}' по '{rc.Interval.End}'" };
+				string dateFromFormated = rc.Interval.Start.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+				string dateToFormated = rc.Interval.End.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+				botResponse = new BotResponse { Text = $"'{realName.FirstName} {realName.LastName}' в отпуске с '{dateFromFormated}' по '{dateToFormated}'" };
 			} else {
 				botResponse = new BotResponse { Text = $"'{realName.FirstName} {realName.LastName}' не в отпуске" };
 			}
