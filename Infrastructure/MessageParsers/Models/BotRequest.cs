@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using MuranoBot.Domain;
 
 namespace Messengers.Models
 {

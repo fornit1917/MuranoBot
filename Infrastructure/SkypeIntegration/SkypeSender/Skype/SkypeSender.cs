@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using Common;
+using MuranoBot.Common;
 using SkypeIntegration.SeleniumCore;
 using SkypeIntegration.SeleniumCore.Elements;
 using SkypeIntegration.Skype.Bys;

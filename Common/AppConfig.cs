@@ -1,4 +1,4 @@
-﻿namespace Common
+﻿namespace MuranoBot.Common 
 {
 	public class AppConfig
 	{

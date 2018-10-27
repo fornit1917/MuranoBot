@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Common;
+using MuranoBot.Common;
 
 namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 	public class TestBase {

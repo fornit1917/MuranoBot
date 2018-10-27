@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SlackAPI;
-using MuranoBot.Infrastructure.SlackAPI.Models;
-using Common;
-using Domain;
+using MuranoBot.Domain;
+using MuranoBot.Infrastructure.MessageSenders.Models;
+using MuranoBot.Common;
 
-namespace MuranoBot.Infrastructure.SlackAPI
+namespace MuranoBot.Infrastructure.MessageSenders
 {
     public class MessageSender
     {

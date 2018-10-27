@@ -4,9 +4,9 @@ using SlackConnector;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Common;
-using Domain;
-using Messengers.Services;
+using MuranoBot.Common;
+using MuranoBot.Domain;
+using MuranoBot.Infrastructure.MessageParsers;
 using Messengers.Models;
 
 namespace App.Services

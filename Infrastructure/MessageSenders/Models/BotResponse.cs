@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MuranoBot.Infrastructure.SlackAPI.Models
+namespace MuranoBot.Infrastructure.MessageSenders.Models
 {
     public class BotResponse
     {

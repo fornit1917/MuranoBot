@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using App.Services;
-using Common;
-using Domain;
-using Messengers.Services;
+using MuranoBot.Common;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MuranoBot.Domain;
 using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
-using MuranoBot.Infrastructure.SlackAPI;
+using MuranoBot.Infrastructure.MessageParsers;
+using MuranoBot.Infrastructure.MessageSenders;
 using MuranoBot.Application.Infrastructure;
 using SkypeIntegration;
 

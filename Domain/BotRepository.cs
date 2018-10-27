@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain
+namespace MuranoBot.Domain 
 {
 	public class BotRepository
 	{

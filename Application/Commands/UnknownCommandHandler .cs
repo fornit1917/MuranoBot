@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Domain;
-using MuranoBot.Infrastructure.SlackAPI;
-using MuranoBot.Infrastructure.SlackAPI.Models;
+using MuranoBot.Domain;
+using MuranoBot.Infrastructure.MessageSenders;
+using MuranoBot.Infrastructure.MessageSenders.Models;
 
 namespace MuranoBot.Application.Commands {
 	public class UnknownCommandHandler : IRequestHandler<UnknownCommand, bool> {

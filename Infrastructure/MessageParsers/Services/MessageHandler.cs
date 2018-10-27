@@ -1,14 +1,13 @@
 ﻿using Messengers.Models;
 using System;
 using System.Threading.Tasks;
-using MuranoBot.Infrastructure.TimeTracking.App.Application;
-using Domain;
-using Common;
+using MuranoBot.Domain;
+using MuranoBot.Common;
 using SlackAPI;
 using MediatR;
 using MuranoBot.Application.Commands;
 
-namespace Messengers.Services
+namespace MuranoBot.Infrastructure.MessageParsers
 {
     public class MessageHandler
     {

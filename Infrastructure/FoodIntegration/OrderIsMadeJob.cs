@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MuranoBot.Infrastructure.SlackAPI.Models;
-using Common;
-using Domain;
-using MuranoBot.Infrastructure.SlackAPI;
+using MuranoBot.Common;
+using MuranoBot.Domain;
+using MuranoBot.Infrastructure.MessageSenders;
+using MuranoBot.Infrastructure.MessageSenders.Models;
 using Quartz;
 
 namespace FoodIntegration

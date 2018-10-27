@@ -24,8 +24,8 @@
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\FoodIntegration\FoodIntegration.csproj" />
-    <ProjectReference Include="..\Infrastructure\SlackAPI\SlackAPI.csproj" />
-    <ProjectReference Include="..\Infrastructure\Messengers\Messengers.csproj" />
+    <ProjectReference Include="..\Infrastructure\MessageParsers\MessageParsers.csproj" />
+    <ProjectReference Include="..\Infrastructure\MessageSenders\MessageSenders.csproj" />
     <ProjectReference Include="..\Infrastructure\TimeTracking\TimeTracking.App\TimeTracking.App.csproj" />
     <ProjectReference Include="..\Infrastructure\SkypeIntegration\SkypeSender\SkypeIntegration.csproj" />
   </ItemGroup>

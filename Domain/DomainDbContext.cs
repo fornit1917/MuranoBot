@@ -1,7 +1,7 @@
-﻿using Common;
+﻿using MuranoBot.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain
+namespace MuranoBot.Domain
 {
 	public class DomainDbContext : DbContext
 	{

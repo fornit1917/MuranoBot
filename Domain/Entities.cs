@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain
+namespace MuranoBot.Domain
 {
 	[Table(nameof(User))]
 	public class User

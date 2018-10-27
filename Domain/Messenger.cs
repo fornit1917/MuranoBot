@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace MuranoBot.Domain
 {
 	public enum Messenger : byte
 	{

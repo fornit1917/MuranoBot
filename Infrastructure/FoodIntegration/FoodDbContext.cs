@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using MuranoBot.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodIntegration

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Domain;
+using MuranoBot.Domain;
 using Microsoft.AspNetCore.Mvc;
 using MuranoBot.Infrastructure.TimeTracking.App.Application;
 using MuranoBot.Infrastructure.TimeTracking.App.Application.Models;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Common;
+using MuranoBot.Common;
 using MuranoBot.Infrastructure.TimeTracking.App.Models;
 
 namespace MuranoBot.Infrastructure.TimeTracking.App.Infrastructure {
