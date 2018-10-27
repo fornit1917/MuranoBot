@@ -36,10 +36,20 @@ namespace MuranoBot.Application.Commands {
 			var realName = GetRealName(command.UserId);
 			var domainName = ConvertToDomainName(realName.FirstName, realName.LastName);
 
-			_vacationsApp.SetVacation(new VacationInfo {
-				DomainName = domainName,
-				Interval = new TimeInterval(command.From, command.To),
-			});
+			try
+			{
+				_vacationsApp.SetVacation(new VacationInfo
+				{
+					DomainName = domainName,
+					Interval = new TimeInterval(command.From, command.To),
+				});
+			}
+			catch (Exception e)
+			{
+				_messageSender.SendAsync(destination, new BotResponse() { Text = "К сожалению TimeTracker временно недоступен." });
+				return Task.FromResult(true);
+			}
+
 
 			string dateFromFormated = command.From.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
 			string dateToFormated = command.To.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);

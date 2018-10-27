@@ -9,6 +9,7 @@ using MuranoBot.Domain;
 using MuranoBot.Infrastructure.MessageSenders;
 using MuranoBot.Infrastructure.MessageSenders.Models;
 using MuranoBot.Infrastructure.TimeTracking.App.Application;
+using MuranoBot.Infrastructure.TimeTracking.App.Application.Models;
 using SlackAPI;
 
 namespace MuranoBot.Application.Commands {
@@ -34,7 +35,17 @@ namespace MuranoBot.Application.Commands {
 			var realName = GetRealNameByTypedName(command.UserName);
 			var domainName = ConvertToDomainName(realName.FirstName, realName.LastName);
 
-			var rc = _vacationsApp.GetVacationInfo(domainName, new DateTime(2018, 08, 27));
+			VacationInfo rc = null;
+			try
+			{
+				rc = _vacationsApp.GetVacationInfo(domainName, new DateTime(2018, 08, 27));
+			}
+			catch (Exception e)
+			{
+				_messageSender.SendAsync(destination, new BotResponse() { Text = "Информация об отпусках временно недоступна." });
+				return Task.FromResult(true);
+			}
+			
 
 			BotResponse botResponse;
 			if (rc != null) {
