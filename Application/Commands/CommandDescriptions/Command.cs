@@ -9,4 +9,4 @@
 		[CommandDescription(Command = "ухожу в отпуск с <date> по <date>", Hint = "занести даты вашего отпуска в TT")]
 		SetVacation
 	}
-}
+} 
