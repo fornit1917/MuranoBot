@@ -7,7 +7,7 @@ namespace MuranoBot.Domain
 	[Table(nameof(User))]
 	public class User
 	{
-		[Key]
+		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public int Id { get; set; }
 		[Column(TypeName = "varchar(256)")]
 		public string Email { get; set; }
