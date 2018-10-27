@@ -5,15 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="5.1.0" />
     <PackageReference Include="SlackAPI" Version="1.0.5.93" />
     <PackageReference Include="SlackConnector" Version="4.2.71" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\SkypeIntegration\SkypeSender\SkypeIntegration.csproj" />
-    <ProjectReference Include="..\TimeTracking\TimeTracking.App\TimeTracking.App.csproj" />
   </ItemGroup>
 
   <ItemGroup>

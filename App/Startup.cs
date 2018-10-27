@@ -10,7 +10,8 @@ using Domain;
 using Messengers.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using MuranoBot.TimeTracking.App.Infrastructure;
+using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
+using MuranoBot.Application.Infrastructure;
 using SkypeIntegration;
 
 namespace App
@@ -47,9 +48,10 @@ namespace App
 
 			// Autofac
 			var builder = new ContainerBuilder();
-			builder.RegisterModule(new TimeTrackingApplicationModule());
-			builder.RegisterModule(new SkypeApplicationModule());
 			builder.Populate(services);
+			builder.RegisterModule(new TimeTrackingApplicationModule());
+			builder.RegisterModule(new MediatorModule());
+			builder.RegisterModule(new SkypeApplicationModule());
 			return new AutofacServiceProvider(builder.Build());
 		}
 

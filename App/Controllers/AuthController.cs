@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using MuranoBot.TimeTracking.App.Application;
-using MuranoBot.TimeTracking.App.Application.Models;
+using MuranoBot.Infrastructure.TimeTracking.App.Application;
+using MuranoBot.Infrastructure.TimeTracking.App.Application.Models;
 
 namespace App.Controllers
 {
