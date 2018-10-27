@@ -16,7 +16,7 @@ namespace SkypeIntegration.SeleniumCore {
 
 		public static ChromeBrowser OpenBrowser() {
 			var options = new ChromeOptions();
-			//options.AddArguments("--headless");
+			options.AddArguments("--headless");
 			options.AddArguments("--disable-gpu");
 			options.AddArguments("--disable-notifications");
 			var chromeService = ChromeDriverService.CreateDefaultService();

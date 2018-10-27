@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Threading;
 using Common;
 using SkypeIntegration.SeleniumCore;
 using SkypeIntegration.SeleniumCore.Elements;
@@ -24,17 +24,35 @@ namespace SkypeIntegration.Skype {
 		private string Password { get; }
 		private int TryCountOnError { get; }
 
+		private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);
+		private readonly ConcurrentGroupQueue _queueForSend = new ConcurrentGroupQueue();
+
 		public bool Write(string chatName, string message) {
+			_queueForSend.Add(chatName, message);
+
+			_semaphore.Wait();
+			var valueForSend = _queueForSend.GetNext();
+			if (valueForSend == null) {
+				_semaphore.Release();
+				Console.WriteLine($"Empty queue on write message '{message}' to chat '{chatName}'");
+				return false;
+			}
+
+			var chatNameForSend = valueForSend.Value.Key;
+			var messageForSend = valueForSend.Value.Value;
+
 			for (var i = 0; i < TryCountOnError; i++) {
 				try {
-					OpenChat(chatName);
-					SendMessage(message);
+					OpenChat(chatNameForSend);
+					SendMessage(messageForSend);
+					_semaphore.Release();
 					return true;
 				} catch (Exception e) {
-					Console.WriteLine($"Error while sending message '{message}' to chat '{chatName}': {e}");
+					Console.WriteLine($"Error while sending message '{messageForSend}' to chat '{chatNameForSend}': {e}");
 					InitBrowser();
 				}
 			}
+			_semaphore.Release();
 			return false;
 		}
 
@@ -70,7 +88,6 @@ namespace SkypeIntegration.Skype {
 
 		private void InitBrowser() {
 			try {
-				var a = Directory.GetCurrentDirectory();
 				Browser?.Dispose();
 				Browser = ChromeBrowser.OpenBrowser();
 				LoginToSite();
