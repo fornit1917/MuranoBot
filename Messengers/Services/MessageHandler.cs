@@ -21,10 +21,9 @@ namespace Messengers.Services
 			_botRepository = botRepository;
         }
 
-        public async Task HandleRequestAsync(BotRequest botRequest)
+        public void HandleRequestAsync(BotRequest botRequest)
         {
             // default destination (sender)
-            Destination destination = new Destination { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
 
             if (botRequest.IsDirectMessage)
             {
@@ -40,10 +39,12 @@ namespace Messengers.Services
             }
 
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
-            if (vacationInfoRequest != null)
-            {
+			if (vacationInfoRequest != null) {
 				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, vacationInfoRequest.Name));
-            }
+            } else {
+				var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
+				_mediator.Send(command);
+			}
         }
     }
 }

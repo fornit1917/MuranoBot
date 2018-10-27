@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Domain;
+using System.Runtime.Serialization;
 using MediatR;
 
 namespace MuranoBot.Application.Commands {
 	public class UnknownCommand : IRequest<bool> {
+		[DataMember]
+        public string ChannelId { get; private set; }
 
-		public Destination Destination { get; private set; }
+		[DataMember]
+        public string UserId { get; private set; }
+
+		[DataMember]
 		public string Text { get; private set; }
 
-		public UnknownCommand(Destination destination, string text) {
-			Destination = destination;
+		public UnknownCommand(string channelId, string userId, string text) {
+			ChannelId = channelId;
+			UserId = userId;
 			Text = text;
 		}
 	}
