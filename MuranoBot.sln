@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracking.App", "Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracking.Tests", "Infrastructure\TimeTracking\TimeTracking.Tests\TimeTracking.Tests.csproj", "{B6A2CD78-ECB4-4548-9533-47B04AB16B27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlackAPI", "SlackAPI\SlackAPI.csproj", "{78629807-B283-490E-AC9A-7A2D8769F10A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlackAPI", "Infrastructure\SlackAPI\SlackAPI.csproj", "{78629807-B283-490E-AC9A-7A2D8769F10A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationSkypeSenderTests", "SkypeIntegration\IntegrationSkypeSenderTests\IntegrationSkypeSenderTests.csproj", "{59AFA881-F3B3-4EF9-AF86-2E7B62C517E6}"
 EndProject

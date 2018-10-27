@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.csproj" />
     <ProjectReference Include="..\..\Messengers\Messengers.csproj" />
+    <ProjectReference Include="..\SlackAPI\SlackAPI.csproj" />
   </ItemGroup>
 
 </Project>

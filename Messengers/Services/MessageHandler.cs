@@ -12,13 +12,11 @@ namespace Messengers.Services
 {
     public class MessageHandler
     {
-        private readonly MessageSender _messageSender;
 		private readonly IMediator _mediator;
 		private readonly BotRepository _botRepository;
 
-        public MessageHandler(MessageSender messageSender, IMediator mediator, BotRepository botRepository)
+        public MessageHandler(IMediator mediator, BotRepository botRepository)
         {
-            _messageSender = messageSender;
 			_mediator = mediator;
 			_botRepository = botRepository;
         }
@@ -27,7 +25,6 @@ namespace Messengers.Services
         {
             // default destination (sender)
             Destination destination = new Destination { ChannelId = botRequest.ChannelId, UserId = botRequest.UserId, Messenger = botRequest.Messenger };
-            BotResponse botResponse;
 
             if (botRequest.IsDirectMessage)
             {
@@ -46,12 +43,7 @@ namespace Messengers.Services
             if (vacationInfoRequest != null)
             {
 				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, vacationInfoRequest.Name));
-                botResponse = new BotResponse { Text = "Запрос на информацию об отпуске у " + vacationInfoRequest.Name };
-                await _messageSender.SendAsync(destination, botResponse);
             }
-
-            botResponse = new BotResponse { Text = $"Команду '{botRequest.Text}' я не знаю" };
-            await _messageSender.SendAsync(destination, botResponse);
         }
     }
 }

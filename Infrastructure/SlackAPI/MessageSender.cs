@@ -7,7 +7,7 @@ using Messengers.Models;
 using Common;
 using Domain;
 
-namespace Messengers.Services
+namespace MuranoBot.Infrastructure.SlackAPI
 {
     public class MessageSender
     {

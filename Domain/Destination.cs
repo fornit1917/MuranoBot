@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace Messengers.Models
+namespace Domain 
 {
     public class Destination
     {

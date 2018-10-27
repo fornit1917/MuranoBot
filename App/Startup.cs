@@ -11,6 +11,7 @@ using Messengers.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MuranoBot.Infrastructure.TimeTracking.App.Infrastructure;
+using MuranoBot.Infrastructure.SlackAPI;
 using MuranoBot.Application.Infrastructure;
 using SkypeIntegration;
 
