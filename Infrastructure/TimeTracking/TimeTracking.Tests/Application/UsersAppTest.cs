@@ -16,7 +16,7 @@ namespace MuranoBot.Infrastructure.TimeTracking.Tests.Application {
 	[TestClass]
 	public class UsersAppTest : TestBase {
 		[TestMethod]
-		public void GetVacationInfoTest() {
+		public void GetUserInfoTest() {
 			using(new TransactionScope(TransactionScopeOption.RequiresNew))
 			using (var dbContext = new TimeTrackerDbContext()) {
 				// Arrange

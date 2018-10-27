@@ -15,9 +15,9 @@ namespace MuranoBot.Infrastructure.TimeTracking.App.Infrastructure.Repositories 
 
 		public IUnitOfWork UnitOfWork => _dbContext;
 
-		public Vacation Get(int userId, DateTime at) {
+		public Vacation Get(string userName, DateTime at) {
 			return _dbContext.Vacations
-				.Where(x => x.UserId == userId && x.DateFrom <= at && at <= x.DateTo)
+				.Where(x => x.User.UserName == userName && x.DateFrom <= at && at <= x.DateTo)
 				.FirstOrDefault();
 		}
 
