@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
@@ -13,8 +14,8 @@ namespace Domain
 	public class MessengerLink
 	{
 		public int? UserId { get; set; }
-		public Messenger MessengerId { get; set; }
+		public Messenger Messenger { get; set; }
 		public string ExternalUserId { get; set; }
-		public string AuthHash { get; set; }
+		public Guid AuthToken { get; set; }
 	}
 }

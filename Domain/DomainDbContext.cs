@@ -12,5 +12,9 @@ namespace Domain
 		{
 			optionsBuilder.UseSqlServer(AppConfig.Instance.MainConnectionString);
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder) {
+			modelBuilder.Entity<MessengerLink>().HasKey(e => new { e.Messenger, e.ExternalUserId });
+		}
 	}
 }

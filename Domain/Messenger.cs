@@ -1,7 +1,9 @@
 ﻿namespace Domain
 {
-    public enum Messenger
-    {
-        Slack, Telegram, Skype
-    }
+	public enum Messenger : byte
+	{
+		Slack,
+		Telegram,
+		Skype
+	}
 }

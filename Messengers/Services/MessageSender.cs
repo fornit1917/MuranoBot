@@ -11,8 +11,8 @@ namespace Messengers.Services
 {
     public class MessageSender
     {
-        private SlackTaskClient _slackClient;
-        private bool _isMocked;
+        private readonly SlackTaskClient _slackClient;
+        private readonly bool _isMocked;
 
         public MessageSender(AppConfig appConfig)
         {
