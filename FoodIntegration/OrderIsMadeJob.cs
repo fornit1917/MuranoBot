@@ -20,13 +20,13 @@ namespace FoodIntegration
 			if (noOrdersForDatesByUser.Count > 0)
 			{				
 				var botRepo = new BotRepository();
-				ILookup<string, (Messenger Messenger, string ExternalId)> externalIds = await botRepo.GetExternalIdByEmail(noOrdersForDatesByUser.Keys);
+				ILookup<string, (Messenger Messenger, string ExternalId)> externalIds = await botRepo.GetExternalIdByUserEmail(noOrdersForDatesByUser.Keys);
 				var sender = new MessageSender(AppConfig.Instance);
 				foreach (IGrouping<string, (Messenger Messenger, string ExternalId)> externalIdGroup in externalIds)
 				{
 					string dates = string.Join(", ", noOrdersForDatesByUser[externalIdGroup.Key].Select(d => d.ToShortDateString()));
 					string message = $"Еда не заказана на {dates}. Это можно исправить тут {AppConfig.Instance.FoodMenuLink}";
-					Destination[] destinations = externalIdGroup.Select(g => new Destination { Messenger = g.Messenger, ChannelId = g.ExternalId }).ToArray();
+					Destination[] destinations = externalIdGroup.Select(g => new Destination { Messenger = g.Messenger, UserId = g.ExternalId }).ToArray();
 					await sender.SendAsync(destinations, new BotResponse {Text = message});
 				}
 			}

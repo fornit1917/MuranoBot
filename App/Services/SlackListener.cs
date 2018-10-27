@@ -13,8 +13,8 @@ namespace App.Services
 {
     public class SlackListener : IHostedService
     {
-        private IServiceProvider _serviceProvider;
-        private AppConfig _config;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly AppConfig _config;
 
         public SlackListener(IServiceProvider serviceProvider, AppConfig config)
         {
@@ -30,7 +30,7 @@ namespace App.Services
             {
                 using (var scope = _serviceProvider.CreateScope())
                 {
-                    var botRequest = new BotRequest()
+                    var botRequest = new BotRequest
                     {
                         Messenger = Messenger.Slack,
                         ChannelId = message.ChatHub.Id,

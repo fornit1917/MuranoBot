@@ -8,13 +8,13 @@ namespace FoodIntegration
 {
 	public class FoodRepository
 	{
-		public Task<DateTime[]> NewMenuDates(DateTime lastMenuDate)
+		public async Task<DateTime[]> NewMenuDates(DateTime lastMenuDate)
 		{
 			using (var ctx = new FoodDbContext())
 			{
 				IQueryable<DateTime> query = ctx.Menus.Where(m => m.Date > lastMenuDate)
 					.Select(m => m.Date).Distinct();
-				return query.ToArrayAsync();
+				return await query.ToArrayAsync();
 			}
 		}
 

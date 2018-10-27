@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Messengers.Models
 {
     public class VacationInfoRequest
     {
-        private static Regex regexQuestion = new Regex(@"(.+)в\sотпуске");
+        private static readonly Regex RegexQuestion = new Regex(@"(.+)в\sотпуске", RegexOptions.Compiled);
 
         public string Name { get; set; }
 
         public static VacationInfoRequest TryParse(BotRequest botRequest)
         {
-            Match match = regexQuestion.Match(botRequest.Text);
+            Match match = RegexQuestion.Match(botRequest.Text);
             if (match.Success)
             {
                 return new VacationInfoRequest() { Name = match.Groups[1].Value };
@@ -21,7 +18,5 @@ namespace Messengers.Models
 
             return null;
         }
-
-
     }
 }
