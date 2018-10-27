@@ -6,6 +6,6 @@ namespace MuranoBot.Infrastructure.TimeTracking.App.Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        int SaveChanges();
     }
 }

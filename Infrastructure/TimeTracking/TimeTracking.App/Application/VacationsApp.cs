@@ -25,7 +25,7 @@ namespace MuranoBot.Infrastructure.TimeTracking.App.Application {
 			var user = _usersRepository.Get(info.DomainName);
 			var vacation = new Vacation(user.UserId, info.Interval.Start, info.Interval.End);
 			_vacationsRepository.Add(vacation);
-			_vacationsRepository.UnitOfWork.SaveChangesAsync();
+			_vacationsRepository.UnitOfWork.SaveChanges();
 		}
 	}
 }

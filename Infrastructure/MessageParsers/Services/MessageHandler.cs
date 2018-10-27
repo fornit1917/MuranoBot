@@ -38,9 +38,12 @@ namespace MuranoBot.Infrastructure.MessageParsers
             }
 
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
+            var setVacationRequest = SetVacationRequest.TryParse(botRequest);
 			if (vacationInfoRequest != null) {
-				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, botRequest.ChannelId, vacationInfoRequest.Name));
-            } else {
+				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, vacationInfoRequest.Name));
+			} else if (setVacationRequest != null) {
+				_mediator.Send(new SetVacationCommand(botRequest.ChannelId, botRequest.UserId, setVacationRequest.From, setVacationRequest.To));
+			} else {
 				var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
 				_mediator.Send(command);
 			}
