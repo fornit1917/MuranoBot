@@ -39,7 +39,7 @@ namespace App.Services
             return Task.CompletedTask;
         }
 
-        private void OnMessageReceived(object sender, MessageEventArgs messageEventArgs)
+        private async void OnMessageReceived(object sender, MessageEventArgs messageEventArgs)
         {
             using (var scope = _serviceProvider.CreateScope())
             {
@@ -52,7 +52,7 @@ namespace App.Services
                     IsDirectMessage = messageEventArgs.Message.Chat.Type == ChatType.Private,
                     Text = messageEventArgs.Message.Text,
                 };
-                messageHandler.HandleRequestAsync(botRequest);
+                await messageHandler.HandleRequestAsync(botRequest);
             }
         }
     }

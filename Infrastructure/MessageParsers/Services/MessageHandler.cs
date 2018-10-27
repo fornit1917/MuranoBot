@@ -25,12 +25,19 @@ namespace MuranoBot.Infrastructure.MessageParsers
 
             if (botRequest.IsDirectMessage)
             {
-				bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.UserId);
-				if (!isRegistered) {
-					Guid authToken = await _botRepository.RegisterLink(botRequest.Messenger, botRequest.UserId);
-					string link = "http://localhost:55659/api/auth/" + authToken; // todo take from config
-					//await _messageSender.SendAsync(destination, new BotResponse { Text = $"Перейдите по ссылке {link} для регистрации" });
-					return;
+				try
+				{
+					bool isRegistered = await _botRepository.IsLinkRegistered(botRequest.Messenger, botRequest.UserId);
+					if (!isRegistered)
+					{
+						var bindAccountCommand = new BindAccountCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId);
+						await _mediator.Send(bindAccountCommand);
+						return;
+					}
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine(e.Message);
 				}
 			}
 
