@@ -8,7 +8,8 @@ namespace FoodIntegration
 	{
 		public static async Task Run(IContainer container)
 		{
-			var scheduler = container.Resolve<IScheduler>();
+			var schedulerF = container.Resolve<ISchedulerFactory>();
+			var scheduler = await schedulerF.GetScheduler();
 			await scheduler.Start();
 
 			var userEmailsJob = JobBuilder.Create<NewMenuCheckJob>()
@@ -29,8 +30,8 @@ namespace FoodIntegration
 			var adminEmailsTrigger = TriggerBuilder.Create()
 				.WithIdentity("OrderIsMadeCron")
 				.StartNow()
-				//.WithCronSchedule("0 0 10/2 ? * MON,TUE,WED,THU,FRI *")
-				.WithCronSchedule("0/10 * * ? * * *")
+				//.WithCronSchedule("0 0 11/2 ? * MON,TUE,WED,THU,FRI *")
+				.WithCronSchedule("10/10 * * ? * * *")
 				.Build();
 
 			await scheduler.ScheduleJob(adminEmailsJob, adminEmailsTrigger);
