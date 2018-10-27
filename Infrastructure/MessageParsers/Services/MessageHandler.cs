@@ -6,6 +6,7 @@ using MuranoBot.Common;
 using SlackAPI;
 using MediatR;
 using MuranoBot.Application.Commands;
+using MessageParsers.Models;
 
 namespace MuranoBot.Infrastructure.MessageParsers
 {
@@ -37,16 +38,59 @@ namespace MuranoBot.Infrastructure.MessageParsers
 				//}
             }
 
+            bool isSuccess;
+            isSuccess = TryRunCheckVacationCommand(botRequest);
+            if (isSuccess)
+            {
+                return;
+            }
+
+            isSuccess = TryRunSetVacationCommand(botRequest);
+            if (isSuccess)
+            {
+                return;
+            }
+
+            isSuccess = TryRunRepostCommand(botRequest);
+            if (isSuccess)
+            {
+                return;
+            }
+
+            var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
+            _mediator.Send(command);
+        }
+
+        private bool TryRunCheckVacationCommand(BotRequest botRequest)
+        {
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
-            var setVacationRequest = SetVacationRequest.TryParse(botRequest);
-			if (vacationInfoRequest != null) {
-				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, vacationInfoRequest.Name));
-			} else if (setVacationRequest != null) {
-				_mediator.Send(new SetVacationCommand(botRequest.ChannelId, botRequest.UserId, setVacationRequest.From, setVacationRequest.To));
-			} else {
-				var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
-				_mediator.Send(command);
-			}
+            if (vacationInfoRequest != null)
+            {
+                _mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, vacationInfoRequest.Name));
+                return true;
+            }
+            return false;
+        }
+
+        private bool TryRunRepostCommand(BotRequest botRequest)
+        {
+            if (MessageRepostRequest.IsRepostRequest(botRequest))
+            {
+                var command = new RepostCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, botRequest.Text);
+                _mediator.Send(command);
+                return true;
+            }
+            return false;
+        }
+        private bool TryRunSetVacationCommand(BotRequest botRequest)
+        {
+            var request = SetVacationRequest.TryParse(botRequest);
+            if (request != null)
+            {
+				_mediator.Send(new SetVacationCommand(botRequest.ChannelId, botRequest.UserId, request.From, request.To));
+				return true;
+            }
+            return false;
         }
     }
 }
