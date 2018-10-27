@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace MuranoBot.Domain
 {
 	public class BotRepository
 	{
+		private const string StoreName = "Store.txt";
 		private readonly DomainDbContext _ctx;
 
 		public BotRepository(DomainDbContext ctx)
@@ -55,6 +57,21 @@ namespace MuranoBot.Domain
 			MessengerLink link = await GetLinkByAuthToken(authToken);
 			link.UserId = id;
 			await _ctx.SaveChangesAsync();
+		}
+
+		public async Task<DateTime[]> GetActualMenuDates()
+		{
+			if (File.Exists(StoreName))
+			{
+				string[] dates = await File.ReadAllLinesAsync(StoreName);
+				return dates.Select(DateTime.Parse).ToArray();
+			}
+			return new[] {DateTime.Today};
+		}
+
+		public async Task SaveActualMenuDates(DateTime[] dates)
+		{
+			await File.WriteAllLinesAsync(StoreName, dates.Select(d => d.ToShortDateString()));
 		}
 	}
 }

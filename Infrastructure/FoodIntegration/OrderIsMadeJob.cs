@@ -15,17 +15,19 @@ namespace FoodIntegration
 		private readonly FoodRepository _foodRepository;
 		private readonly BotRepository _botRepository;
 		private readonly MessageSender _messageSender;
+		private readonly AppConfig _appConfig;
 
-		public OrderIsMadeJob(FoodRepository foodRepository, BotRepository botRepository, MessageSender messageSender)
+		public OrderIsMadeJob(FoodRepository foodRepository, BotRepository botRepository, MessageSender messageSender, AppConfig appConfig)
 		{
 			_foodRepository = foodRepository;
 			_botRepository = botRepository;
 			_messageSender = messageSender;
+			_appConfig = appConfig;
 		}
 
 		public async Task Execute(IJobExecutionContext context)
 		{
-			DateTime[] actualMenuDates = TempData.ActualMenuDates;
+			DateTime[] actualMenuDates = await _botRepository.GetActualMenuDates();
 			Dictionary<string, DateTime[]> noOrdersForDatesByUser = await _foodRepository.NoOrderDatesByUserEmail(actualMenuDates);
 			if (noOrdersForDatesByUser.Count > 0)
 			{				
@@ -33,7 +35,7 @@ namespace FoodIntegration
 				foreach (IGrouping<string, (Messenger Messenger, string ExternalId)> externalIdGroup in externalIds)
 				{
 					string dates = string.Join(", ", noOrdersForDatesByUser[externalIdGroup.Key].Select(d => d.ToShortDateString()));
-					string message = $"Еда не заказана на {dates}. Это можно исправить тут {AppConfig.Instance.FoodMenuLink}";
+					string message = $"Еда не заказана на {dates}. Это можно исправить тут {_appConfig.FoodMenuLink}";
 					Destination[] destinations = externalIdGroup.Select(g => new Destination { Messenger = g.Messenger, UserId = g.ExternalId }).ToArray();
 					await _messageSender.SendAsync(destinations, new BotResponse {Text = message});
 				}

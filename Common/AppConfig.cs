@@ -19,5 +19,6 @@
         public string TelegramToken { get; set; }
         public string TelegramProxyHost { get; set; }
         public int TelegramProxyPort { get; set; }
+		public string SlackOfficeChat { get; set; }
 	}
 }
