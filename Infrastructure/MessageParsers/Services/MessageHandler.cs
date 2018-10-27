@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MuranoBot.Domain;
 using MediatR;
 using MuranoBot.Application.Commands;
+using MuranoBot.Application.Models;
 using MessageParsers.Models;
 
 namespace MuranoBot.Infrastructure.MessageParsers
@@ -34,7 +35,7 @@ namespace MuranoBot.Infrastructure.MessageParsers
 				}
 			}
 
-	        var isSuccess = await TryRunCheckVacationCommand(botRequest);
+			var isSuccess = await TryRunCheckVacationCommand(botRequest);
             if (isSuccess)
             {
                 return;
@@ -61,7 +62,8 @@ namespace MuranoBot.Infrastructure.MessageParsers
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
             if (vacationInfoRequest != null)
             {
-                return await _mediator.Send(new CheckVacationCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, vacationInfoRequest.Name));
+                return await _mediator.Send(new CheckVacationCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId,
+					new UserInfo { SlackId = vacationInfoRequest.SlackId, FullName = vacationInfoRequest.FullName}));
             }
             return false;
         }
