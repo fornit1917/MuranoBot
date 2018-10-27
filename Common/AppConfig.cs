@@ -15,5 +15,6 @@
 		public string TimeTrackerConnectionString { get; set; }
 		public string MainConnectionString { get; set; }
 		public string FoodMenuLink { get; set; }
+        public string SkypeOfficeChat { get; set; }
 	}
 }

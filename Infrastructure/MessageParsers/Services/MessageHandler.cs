@@ -6,6 +6,7 @@ using MuranoBot.Common;
 using SlackAPI;
 using MediatR;
 using MuranoBot.Application.Commands;
+using MessageParsers.Models;
 
 namespace MuranoBot.Infrastructure.MessageParsers
 {
@@ -37,13 +38,43 @@ namespace MuranoBot.Infrastructure.MessageParsers
 				//}
             }
 
+            bool isSuccess;
+            isSuccess = TryRunCheckVacationCommand(botRequest);
+            if (isSuccess)
+            {
+                return;
+            }
+
+            isSuccess = TryRunRepostCommand(botRequest);
+            if (isSuccess)
+            {
+                return;
+            }
+
+            var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
+            _mediator.Send(command);
+        }
+
+        private bool TryRunCheckVacationCommand(BotRequest botRequest)
+        {
             var vacationInfoRequest = VacationInfoRequest.TryParse(botRequest);
-			if (vacationInfoRequest != null) {
-				_mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, botRequest.ChannelId, vacationInfoRequest.Name));
-            } else {
-				var command = new UnknownCommand(botRequest.ChannelId, botRequest.UserId, botRequest.Text);
-				_mediator.Send(command);
-			}
+            if (vacationInfoRequest != null)
+            {
+                _mediator.Send(new CheckVacationCommand(botRequest.ChannelId, botRequest.UserId, botRequest.ChannelId, vacationInfoRequest.Name));
+                return true;
+            }
+            return false;
+        }
+
+        private bool TryRunRepostCommand(BotRequest botRequest)
+        {
+            if (MessageRepostRequest.IsRepostRequest(botRequest))
+            {
+                var command = new RepostCommand(botRequest.Messenger, botRequest.ChannelId, botRequest.UserId, botRequest.Text);
+                _mediator.Send(command);
+                return true;
+            }
+            return false;
         }
     }
 }
