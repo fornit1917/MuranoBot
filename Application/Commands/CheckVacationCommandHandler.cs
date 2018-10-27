@@ -31,8 +31,15 @@ namespace MuranoBot.Application.Commands {
 				Messenger = command.Messenger,
 			};
 
-			// var realName = GetRealName(command.UserId);
-			var realName = GetRealNameByTypedName(command.UserName);
+			RealName realName;
+			if (command.TargetUser.FullName != null) {
+				realName = GetRealNameByTypedName(command.TargetUser.FullName);
+			} else if (command.TargetUser.SlackId != null) {
+				realName = GetRealName(command.UserId);
+			} else {
+				_messageSender.SendAsync(destination, new BotResponse() { Text = "Не могу распазнать имя" });
+				return Task.FromResult(false);
+			}
 			var domainName = ConvertToDomainName(realName.FirstName, realName.LastName);
 
 			VacationInfo rc = null;
@@ -59,7 +66,7 @@ namespace MuranoBot.Application.Commands {
 			return Task.FromResult(true);
 		}
 
-		private (string FirstName, string LastName) GetRealName(string userId) {
+		private RealName GetRealName(string userId) {
 			SlackAPI.User user = null;
 
 			var mre = new ManualResetEvent(false);
@@ -69,10 +76,10 @@ namespace MuranoBot.Application.Commands {
 			}, userId);
 			mre.WaitOne();
 
-			return (user.profile.first_name, user.profile.last_name);
+			return new RealName {FirstName = user.profile.first_name, LastName = user.profile.last_name};
 		}
 
-		private (string FirstName, string LastName) GetRealNameByTypedName(string userName)
+		private RealName GetRealNameByTypedName(string userName)
 		{
 			var parts = userName.Split(' ');
 			parts[0] = parts[0].Trim();
@@ -81,11 +88,16 @@ namespace MuranoBot.Application.Commands {
 				parts[1] = parts[1].Trim();
 			}
 
-			return (parts[0].Trim(), parts.Length > 1 ? parts[1].Trim() : "");
+			return new RealName {FirstName = parts[0].Trim(), LastName = parts.Length > 1 ? parts[1].Trim() : ""};
 		}
 
 		private string ConvertToDomainName(string firstName, string lastName) {
 			return @"CORP\"+$"{firstName}.{lastName}";
+		}
+
+		private class RealName {
+			public string FirstName { get; set; }
+			public string LastName { get; set; }
 		}
 	}
 }

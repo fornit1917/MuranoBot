@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using MuranoBot.Domain;
+using MuranoBot.Application.Models;
 
 namespace MuranoBot.Application.Commands {
 	public class CheckVacationCommand : BaseCommand, IRequest<bool> {
-		public string UserName { get; private set; }
+		public UserInfo TargetUser { get; private set; }
 
-		public CheckVacationCommand(Messenger sourceMessenger, string channelId, string userId, string userName) : base(sourceMessenger, channelId, userId) {
-			UserName = userName;
+		public CheckVacationCommand(Messenger sourceMessenger, string channelId, string userId, UserInfo targetUser) : base(sourceMessenger, channelId, userId) {
+			TargetUser = targetUser;
 		}
 	}
 }
